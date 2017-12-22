@@ -1,0 +1,398 @@
+\chapter{Introduction}
+
+
+This thesis describes different aspects in bi-directional control and feedback for upper limb prosthetic users. The problems with current prostheses and challenges for increasing prosthesis acceptance rates are first highlighted, and then the pattern-recognition based prosthetic control methods are depicted. The rest of the thesis focuses on different non-invasive sensory feedback methods.
+
+\section{Upper limb amputees and upper limb prostheses }
+Hand amputation is a dramatic event that could greatly degrade the life quality of the amputee. There are an estimated three million upper limb amputees all over the world \cite{micera2016staying}. 
+The major causes of upper extremity amputation are trauma, dysvascularity, and neoplasia \cite{raichle2008prosthesis}. Depending on the amputation level, upper extremity amputation can be classified into partial hand amputation, wrist disarticulation, transradial (below elbow), transhumeral (above elbow), shoulder disarticulation, and forequarter amputations (Fig. \ref{fig:amputation_level}). 
+
+
+ \begin{figure}[hbt!]
+    \centering
+       \includegraphics[width=0.45\textwidth]{images/AmputationLevel.pdf}
+        \caption{Illustration of amputation levels \cite{cordella2016literature}}
+        \label{fig:amputation_level}
+\end{figure}
+
+
+About \SI{80}{\%} of upper limb amputees are reported to use prostheses \cite{ostlie2012prosthesis}. A hand/ arm prosthesis is a device that aims to replace, at least partially, the functionality of the missing hand and/or arms. The upper limb prostheses can be categorized into passive prostheses and active prostheses. Passive or cosmetic prostheses mainly serve an aesthetic purpose and sometimes help to balance the body to avoid spinal misalignment (Fig. \ref{fig:prosthesis_examples}(a)) \cite{castelli2017grasping}. Active prostheses offer active grasping functions. 
+
+Within the active prostheses, the body-powered (BP) prostheses can be open and closed through a harness and cable system worn on the shoulder (Fig. \ref{fig:prosthesis_examples}(b)). Depending on their mode of operation, BP prostheses are further divided into a voluntary opening type and a voluntary closing type \cite{noauthor_6a:_nodate}. Experiments have indicated that voluntary closing prostheses have a faster operation speed compared to that of voluntary opening prostheses, when tested with standard clinical outcome measures. However, the most highly desired BP prosthesis control combines both voluntary closing and voluntary opening, so that the user can switch between the two operation modes for different tasks \cite{berning2014comparison}. 
+BP prostheses are simple to use, robust, and inexpensive. However, their drawbacks include high energy expenditure from the user and a limited control interface: most BP prostheses only offer one degree-of-freedom  (DoF) at a time \cite{hosmer}. 
+
+The other type of active prostheses are externally powered ones. In the past, hydraulic and pneumatic prostheses have both been proposed. In the current market, however, electrically powered prostheses are the main form of externally-powered active prostheses. Electrically powered prostheses can be controlled through brain-machine interfaces \cite{noauthor_revolutionizing_nodate, guger1999prosthetic, aggarwal2006noninvasive} and peripheral interfacse \cite{ortiz2014osseointegrated,raspopovic2014restoring,dhillon2005direct,di2012human,oddo2016intraneural,horch2011object}, or electromyographic (EMG) signals. Most commercial prostheses are controlled through EMG signals. Theses types of prostheses are referred as myoelectric prostheses (Fig. \ref{fig:prosthesis_examples}(c))). EMG signals measure the muscle generated electrical currents during contraction, and describe neuromuscular activities \cite{reaz2006techniques}. Commercial myoelectric prostheses generally apply two EMG electrodes over the flexor and extensor muscles of the forearm for transradial amputees, or over the biceps and triceps for transhumeral amputees, or over the pectorails and deltoid for shoulder disarticulation amputees. In the current research, the number of EMG electrodes used ranges from two to 32 \cite{ottobock_sensor_hand_speed, tenore2007towards}. 
+The myoelectric prostheses provide the most dexterous and intuitive control \cite{cordella2016literature}. A survey with prosthetic users have shown that amputees prefer to use body-powered prosthesis while conducting tasks of manual labor. The myoelectric prostheses are preferred by the users while doing office work \cite{carey2015differences}. The comparison of the two types of active prostheses are listed in Table \ref{tab:active_prosthese_comparison}.
+
+
+
+ \begin{figure}[htb!]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{images/ComsmeticProsthesis.png}
+        \caption{}
+        \label{fig:cosmetic_prosthesis}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{images/BodyPoweredProsthesis.png}
+        \caption{}
+        \label{fig:body_powered_prosthesis}
+    \end{subfigure}
+    ~ 
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{images/MyoProsthesis.png}
+        \caption{}
+        \label{fig:myoelectric_prosthesis}
+    \end{subfigure}
+    \caption{Examples of (a) a cosmetic prosthesis, (b) a body-powered prosthesis \cite{hosmer}, and (c) a myoelectric prosthesis \cite{ottobock_michelangelo}}
+    \label{fig:prosthesis_examples}
+\end{figure}
+
+
+
+
+ \begin{table}[ht!]
+\centering
+\caption{Comparison between body-powered and myoelectric prostheses} 
+\begin{tabular}{| >{\centering\arraybackslash}m{1.8cm} | >{\centering\arraybackslash}m{5.2cm} | >{\centering\arraybackslash}m{5.2cm} |  } 
+\hline
+\textbf{Aspects}                  &  \textbf{Body-powered}                  &  \textbf{Myoelectric} \\ 
+ \hline
+Function                 & \shortstack{Works at all temperatures\\Some proprioception\\Intuitive control}  & \shortstack{Strong pinch force \\Secure grasp\\Fine pinch possibility\\Minimal body-movement\\Minimal physical effort \\Larger range of motions} \\
+\hline
+Appearance            &  Less natural with the harness  & \shortstack{More natural looking \\No large control motions}  \\
+\hline
+Comfort                 &  \shortstack{Less heavy\\Soft flexible inner linear \\ inside the socket}    & \shortstack{No harness trapped to the body} \\
+\hline
+Others                   &  \shortstack{Low cost \\ Do not need to charge batteries \\More durable \\Robustness \\Less training required \\Less environment sensitive}          & Easy to put on and off  \\
+\hline
+\end{tabular}
+\label{tab:active_prosthese_comparison}   
+\end{table} 
+ 
+Despite some drawbacks of myoelectric prostheses, clinical surveys have shown that myoelectric prostheses have the highest user acceptance rate: \SI{82}{\%} for transradial amputees, \SI{86}{\%} for transhumeral amputees, and \SI{100}{\%} for shoulder disarticulation amputees \cite{ottobock_clinical_trial_summary}.
+
+
+Current advanced myoelectric prostheses can have several movable joints and a large range of movement patterns (for example: iLimb Hand from Touch Bionics, UK \cite{touchbionics_i_limb}, Michelangelo hand from Otto Bock Health Care Products, Germany \cite{ottobock_michelangelo}, bebionic hand from RSL Steeper, UK (recently acquired by Otto Bock) \cite{bebionic}, Vincent Hand from Vincent Systems, Germany \cite{vincent_system_vincent_evoluation_2}, and Luke Arm from Mobius Bionics LLC, US \cite{luke_arm} ).  
+
+
+The actuators used in commercial prostheses are mostly direct-current (DC) motors. Both brushed and brushless motors are used. Brushless motors has a higher torque/weight ratio but also need a more complicated control system. They are more commonly used in research hands. 
+Most of the multi-grasp commercial hands provide rotating thumbs because thumb movements were reported to contribute, arguably, to \SI{40}{\%} of all hand movements \cite{michael2004atlas}.  The weights of commercial prostheses range from \SI{350}{g} to \SI{615}{g} \cite{belter2013mechanical}, which is comparable to the weight of a natural hand. %, which weighs around \SI{400}{g}.
+However, because the prostheses are attached to soft tissues, it felt heavier.  One of the design changes required by the amputees is to reduce the prosthetic weight \cite{cordella2016literature}.
+
+ 
+There are also a wide range of research hands developed in universities or research institutes: SmartHand \cite{carrozza2006design}, Vanderbilt multigrasp hand \cite{dalley2010multigrasp}, Pisa/IIT SoftHand \cite{catalano2014adaptive}, TBM Hand \cite{dechev2001multiple}, Remedi Hand \cite{light2000development}, Manus Hand \cite{pons2004manus}, to name a few. Because many of the research hands focus on a certain feature and not on the entire system, it is difficult to compare directly the research hands with the commercial ones. 
+
+Many of the research hands and some of the commercial prostheses have used the design concept of underactuation to reduce the weight and increase the degree-of-freedoms \cite{belter2013mechanical}. The principle of underactuation is that the number of actuators is lower than the number of usable degrees-of-freedom \cite{kyberd2011use}.
+
+
+One of the emerging trends for prosthetic design and fabrication is the application of additive manufacturing for customized prosthesis design. Additive manufacturing is also referred to as 3D-printing. In 3D-printing, the objects are constructed by depositing thermoplastics in layers \cite{ventola2014medical}.  
+The 3D-printed prostheses are cost-effective and customizable. The fabrication process is fast, usually less than 24 hours. It is especially attractive for amputated children because of their constant growth and the need to replace prostheses or parts of the prosthesis regularly. 
+There are some 3D-printed myoelectric prosthesis platforms: Open Bionics \cite{open_bionics}, previously known as the Open Hand project, and Tact hand \cite{slade2015tact} for transradial amputees,  as well as Limbitless solutions \cite{limbitless_solutions} and Cyborg Beast \cite{zuniga2015cyborg}, focusing on 3D-printed prostheses for children. The website e-NABLE also provides several hand designs \cite{enabling_the_future}.
+
+The characteristics of the above mentioned and more commercial and research prostheses are listed in Appendix A. 
+
+\subsubsection{Control of Myoelectric Prostheses}
+Both intramuscluar EMG (iEMG) and surface EMG (sEMG) singals were reported to be used to control prostheses \cite{smith2014real,kamavuako2009relationship,rafiee2011feature}. The iEMG signals are collected through percutaneous wire or needle electrodes or wireless implanted recording electrodes. Compared to sEMG, iEMG has less crosstalks and higher selectivity\cite{micera2010control}. The sEMG records the muscle activities on the skin surface. Although it suffers from crosstalk and it is sensitive to electrode displacement and contact condition changes, it is still preferred by all commercial prosthetic providers because of its non-invasive nature. The sEMG signal also offeres a globale overview of the muscle contraction activities. Thus, the rest of the section will only discuss the control strategies using sEMG, even though some of the control methods could also apply to iEMG signals.
+The myoelectric prosthetic control methods can be divided into non-pattern recognition based methods and pattern recognition based methods (Fig. \ref{fig:myoelectric_control_classification_methods}). 
+
+ \begin{figure}[ht!]
+    \centering
+        \includegraphics[width=\textwidth]{images/Classification_of_myolectric_control_methods.pdf}
+        \caption{Classifications of myoelectric control methods}
+        \label{fig:myoelectric_control_classification_methods}
+\end{figure}
+
+\paragraph{Non-pattern recogntition based methods}
+For hook-like myoelectric prostheses (normally with 1 DoF), the on-off control and the proportional control are generally used to open or close the hand. For the on-off control, muscle flexion closes the hand and muscle extension opens the hand, or vice versa.
+In addition to on-off control, the proportional control incorporates speed or force control: the opening and closing of the prosthetic hand is proportional to the magnitude of the EMG signal.
+The onset control is also reported to control the 1-DoF prosthesis by detecting the start and ending of the EMG activation signals \cite{staude2001onset}. 
+For multi-grasp prostheses, finite-state-machine (FSM) control is widely used in commercial prostheses (e.g. i-Limb \cite{touchbionics_i_limb} and bebionics \cite{bebionic}) as well as in some research hands ( e.g. Southampon REMEDI hand \cite{cotton2006control} and Vanderbilt hand \cite{dalley2010multigrasp}). For FSM control, each state represents a targeted hand gesture and the muscle flexion and closing changes within each state. The muscle contraction switch between the state in a predefined sequential order (Fig. \ref{fig:iLimb_finite_state_machine}).
+  
+ \begin{figure}[ht!]
+    \centering
+        \includegraphics[width=0.56\textwidth]{images/iLimb_finite_state_machine}
+        \caption{State diagram of i-Limb prostheses control \cite{segil2014comparative}. The architecture consisted of six states corresponding to the six target postures, excluding the hand gestures (resting phase). A trigger (T) iteratively changed states in a specified order. E represent extension EMG signal, F represents flexion EMG signal, and T represents trigger command (combined flexion and extension EMG signals supersede a tuned threshold). }
+        \label{fig:iLimb_finite_state_machine}
+\end{figure}
+
+The non-pattern recognition based methods (sometimes also referred as direct control methods) are  simple, primitive, and robust. However, the control interfaces of those methods are limited and often unnatural. 
+
+
+\paragraph{Pattern recognition based methods}
+Pattern recognition based control strategy relies on machine learning algorithms to detect and classify the EMG signals. 
+For pattern recognition based control, the procedure consists of three steps: data acquisition, data pre-processing and classification (Fig. \ref{fig:pattern_recognition_emg_classification}). The raw EMG data is collected by the EMG electrodes channels (Fig. \ref{fig:pattern_recognition_emg_classification}:A). Then the data is filtered, amplified, and digitized (Fig. \ref{fig:pattern_recognition_emg_classification}:B). During the classification phase  (Fig. \ref{fig:pattern_recognition_emg_classification}:C), the digitized data is first segmented into time windows. Within each window, features are extracted. Both time-domain (TD) and frequency-domain (FD) features are proposed in the literature. The commonly used features include mean absolute values (MAV), zero-crossings (ZC), slope sign changes (SSC), waveform length (WL), median frequency (MF), power spectrum deformation (PSD), and signal-to-noise ratio (SNR). The extracted features or feature combinations will be used for classification by a classifier. Commonly used classifiers include artificial neural networks \cite{hiraiwa1989emg, uchida1992emg, gupta2017emg}, fuzzy logic algorithms \cite{chan2000fuzzy, micera1999hybrid}, support vector machines \cite{oskoei2008support}, and so on.  Pattern recognition based methods can be intuitive but the drawback of this method include sensitive to noise (socket shifting, limb movement, etc) and the delay caused by data segmentation. More details on pattern recognition based prosthetic control are in Chapter \ref{chap:myographic_signal_pattern_recognition}. 
+
+
+
+ \begin{figure}[ht!]
+    \centering
+        \includegraphics[width=\textwidth]{images/Pattern_Recognition_EMG_Classification.pdf}
+        \caption{Procedure of pattern recognition based prosthetic control.}
+        \label{fig:pattern_recognition_emg_classification}
+\end{figure}
+
+
+
+\section{Somatosensory system}
+The somatosensory system provides information of  touch, pain, temperature, position, movement, and vibration \cite{hendry_chapter_2013}.
+This section mainly focuses on two modalities in the somatosensory system: the sense of touch and proprioception. Both types of sensations are important for prosthetic control and the prosthetic embodiment.
+The sense of touch includes perceptions of contact, pressure, vibration, and fluttering.
+The proprioceptive sensory system provides information regarding the limb orientation, position, and movement \cite{grey2010proprioceptive}. 
+
+\subsection{The sense of touch}
+Mechanoreceptors are responsive to mechanical pressure or distortions applied on the skin.  There are four types of mechanoreceptors in the glabrous (hairless) skin (Fig. \ref{fig:mechanoreceptor}): Meissner’s corpuscles, Pacinian corpuscles,  Merkel disks, and Ruffini endings \cite{burgesscutaneous1973}. There is one more receptors in the hairy skin.  
+Meissner’s corpuscles are the shallowest mechanoreceptors and they are sensitive to low-frequency vibration and texture changes.  
+Pacinian corpuscles are the largest mechanoreceptors. They are responsible for high frequency vibration perception. Their response frequency ranges from 40 to \SI{800}{Hz}, but most sensitive around 200 to \SI{300}{Hz}. The Merkel disks (also known as Merkel nerve ending) detect sustained pressure. The Ruffini endings detect tension deep in the skin and fascia (Table 1.2) \cite{reed_tactile_2002}.
+Receptors in hair follicles sense when a hair changes position.
+
+ \begin{figure}[htb!]
+    \centering
+        \includegraphics[width=0.8\textwidth]{images/Mechanoreceptors.pdf}
+        \caption{The mechanoreceptors in the human skin \cite{johnson2001roles}.}
+        \label{fig:mechanoreceptor}
+\end{figure}
+
+
+
+\begin{table}[ht!]
+\centering
+\label{tab:mechanoreceptors}   
+\begin{threeparttable}
+\caption{Properties of mechanoreceptors} 
+\begin{tabular}{| >{\centering\arraybackslash}m{1.8cm} | >{\centering\arraybackslash}m{2cm} | >{\centering\arraybackslash}m{1.8cm} |  >{\centering\arraybackslash}m{1.5cm} | >{\centering\arraybackslash}m{4.5 cm} |} 
+\hline
+\textbf{Receptor name}  &  \textbf{Receptor type}  &  \textbf{Adaptation rate}&  \textbf{Receptive field}   &  \textbf{Function}\\ 
+ \hline
+Meissner's corpuscles      & FA I (RA) &  Rapid & Small & \shortstack{Light touch, \\dynamic pressure (5 to \SI{10}{Hz}} \\
+\hline
+Pacinian corpuscles        & FA-II (PC) & Rapid & Large  & \shortstack{Vibration (250 to 350 Hz),\\ fine surface texture} \\
+\hline
+Merkel's disks                &SA-I  & Slow & Small & \shortstack{light pressure (<\SI{5}{Hz}, \\shape and edge detection, \\rough texture }    \\
+\hline
+Ruffinin ending             & SA-II & Slow & Large & \shortstack{Slippage detection, \\skin conformation or stretch}  \\                             
+\hline
+Hair follicle                   & RA   & Rapid &  ?    & Stroking, fluttering \\
+\hline
+\end{tabular}
+    \begin{tablenotes}
+      \small
+      \item \qquad RA represents rapid adapting
+      \item \qquad SA represents slow adapting
+    \end{tablenotes}
+  \end{threeparttable}
+\end{table} 
+
+
+
+
+
+
+
+\subsection{Proprioceptive sensory system}
+Proprioception sensation conveys the information of the movement and position of the limbs. Proprioception plays a crucial role in enabling humans to move purposely and interact with their physical surroundings \cite{blank2010identifying}. Lack of proprioceptive information could result in uncoordinated finger movements, coarse and exaggerated grasping behaviors, as well as the incapacity of planning the limb movement dynamics \cite{sainburg1995control}.
+The proprioceptive signals are transmitted by the large muscle afferent to the motor cortex via the dorsal columns \cite{favorov1988functional} and to the cerebellum via spinocerebella tracts \cite{ekerot1979information}. 
+Proprioceptors are found in muscles, joints, and skin. 
+Different proprioceptors are reported to sense muscle strength, muscle stretch velocity, and tension in the tendon. Proprioception is a compound sense, relying on simultaneous information related to the changes in the angle, direction, and velocity of joint movements.
+
+
+
+\section{Sensory feedback: state-of-the-art}
+Although the design of prostheses has made significant progress in the past decades, restoring natural control and feeling is still not achieved. 
+Only one commercial prosthetic hand (Vincent Hand evolution 2 \cite{vincent_system_vincent_evoluation_2}) has equipped with a sensory feedback system: one vibrator to represent the grasping force \cite{vincent_system_vincent_evoluation_2}.
+Surveys with amputees have shown that most active prosthetic users desire to feel the grasping force and the temperature. Pylatiuk's survey even listed sensory feedback as the most desired design priority for upper limb prostheses \cite{pylatiuk2007results}. Providing sensory feedback could enhance the object manipulation ability \cite{clemente2016non}, increase the embodiment feeling \cite{marasco2011robotic, mulvey2009use,collins2016ownership}, reduce phantom limb pain \cite{dietrich2012sensory, mulvey2013transcutaneous}, and decrease the cognitive load while using the prostheses\cite{svensson2017review, yamada2016investigation}. 
+
+The methods for providing sensory feedback can be roughly organized into two main categories: invasive and non-invasive methods. 
+The invasive approach stimulates either the central nervous system using cortical electrodes \cite{tabot2013restoring, tabot2015restoring,collins2016ownership}, or the peripheral nervous system using cuff electrodes \cite{ortiz2014osseointegrated, tan2014neural}, intrafascicular electrodes \cite{raspopovic2014restoring} , microelectrode array \cite{davis2016restoring}, or sieve electrodes \cite{lago2005long}. 
+Non-invasive feedback systems apply stimuli on the surface of the skin. The stimuli can be electrical currents (electrotactile), vibrations (vibrotactile), mechanical pushing force (mechanotactile), or multi-modal stimulation on the skin to elicit sensations. The overview of the main sensory feedback approaches are presented in Table \ref{tab:overview_haptic_feedbacks}.
+
+\begin{table}[htp!]
+\center
+\caption{Overview of the main sensory feedback approaches}
+\label{tab:overview_haptic_feedbacks}
+   \begin{tabular}{ |c|c|c|c|c|}
+       \hline
+        \multicolumn{2}{|c|}{\textbf{Methods}}                   &  \textbf{Advantages}                   & \textbf{Limitations}                  \\
+       \hline \hline
+       \multicolumn{4}{|c|}{\textbf{Invasive methods}} \\
+       \hline \hline
+       \multirow{ 2}{*}{\shortstack{Periphery \\stimulation}} &  Extraneural  & \shortstack{Reduced risk\\Simple implementation\\Well understood} & \shortstack{Higher stimulation current \\Hard to focus on the certain nerves \\ Potentially evoke paresthesias} \\
+      \cline{2-4} 
+                                                                                       &  Intraneural   & Introduce more natural feeling                                  & Higher risk for nerve damage \\
+       \hline  
+      \multicolumn{2}{|c|}{\shortstack{Central nervous \\system stimulation}}       & Higher surgical risk                                                  & Potential richer information \\
+      \hline\hline
+      \multicolumn{4}{|c|}{\textbf{Targeted muscle reinnervation}} \\
+      \hline \hline
+      \multicolumn{2}{|c|}{\shortstack{Targeted \\ sensory\\ reinnervation} }    &  \shortstack{No implants, \\Easier surgical procedure, \\Long-term stability, \\Natural sensation}  & \shortstack{Limited sensation capacity \\Non-somatotopically organized\\ limb representation} \\
+      \hline  \hline
+        \multicolumn{4}{|c|}{\textbf{Non-invasive methods}} \\     
+       \hline \hline
+       \multicolumn{2}{|c|}{Mechanotactile}    &  \shortstack{High power consumption \\ Large size \\Slow response}    & Modality-matching \\
+       \hline
+       \multicolumn{2}{|c|}{Vibrotactile}      & \shortstack{Small \\Light weighted \\Easy to control}         & \shortstack{Modality-mismatched\\Wave propagation} \\
+       \hline
+       \multicolumn{2}{|c|}{Electrotactile}     & \shortstack{Thinness \\ Mechanical robustness}  & \shortstack{Interference with EMG signal\\Stability issue}  \\
+       \hline
+       \multicolumn{2}{|c|}{Multi-modal} &  \shortstack{Compact \\Richer haptic information} & Can cause confusion   \\
+       \hline
+    \end{tabular}
+\end{table}
+
+
+\subsection{Invasive sensory feedback}
+The invasive sensory feedback are often coupled together with prosthetic control using neural interfaces. The implanted electrodes serves both as signal collecting devices and stimulation devices.
+Based on the implantation sites, the invasive sensory feedback can be categoried into central nervous system stimulation and peripheral nerve stimulation.  
+
+The development of central nervous stimulation is still at an early stage. Penfiled has first demonstrated that electrical stimulation applied to the brain could elicit somatosensory perception \cite{penfield1937somatic}. 
+Flesher \textit{et al.} have implanted two microelectrode arrays in the primary somatosensory cortex of one spinal cord injured participant \cite{flesher2016intracortical}.  The results suggested that intracortical microstimulation can potentially provide natural somatosensory feedback. The study done by Collins \textit{et al.} had demonstrated that electrical brain stimulation could also induce body ownership feeling towards an artificial limb \cite{collins2016ownership}. Because of its high surgical risks and invasiveness, it is sometimes not justified to apply brain implants for prosthetic users. Central nervous stimuation is not widely applied to amputees, but rather to high-level tetraplegics.
+
+Peripheral stimulation approaches can be further classified into intraneural stimulation and extraneural stimulation. The reported peripheral neural interfaces include cuff electrodes, flat interface nerve electrodes, longitudinal intrafascicular electrodes, transverse intrafascicular electrodes, microelectrode stimulation arrays, and regenerative (or sieve) electrodes. The selectivity and invasiveness of peripheral nerve electrodes are normally in reverse relationship: the higher selectivity, the higher the invasiveness, and normally also the higher surgical difficulty (Fig \ref{fig:implanted_electrodes_tradeoff}). 
+
+
+ \begin{figure}[htb]
+    \centering
+       \includegraphics[width=\textwidth]{images/ImplantableElectrodesTradeOff.pdf}
+        \caption{The tradeoff of invasiveness and selectivity of some commonly used implantable electrodes for bidirectional interfacing with the prostheses. FINE is short for flat interface nerve electrode, LIFE is short for longitudinal intrafascicular electrode, TIME is short for transverse intrafascicular multichannel electrode, and MEA is short for microelectrode array \cite{ortiz2012viability}.}
+        \label{fig:implanted_electrodes_tradeoff}
+\end{figure}
+
+For extraneural stimulation, the implants are in the subcutaneous field and target not a certain nerve but a group of nervous endings. The implanted cuff electrodes fits around the outside of the nerve bundles. They have low invasiveness and its biocompatibility/ stability have been proved by several mid-term or long-term studies \cite{christie2017longterm, tan2014neural}. Another type of extraneural electrodes are the flat interface nerve electrodes (FINE) \cite{tyler2002functionally}. Similar like the cuff electrodes, the FINE was implanted around the nerves, but it flattens the nerve to increase contact surface, thus increasing selectivity. The biocompatibility and stability of FINE implanted in human is yet to be investigated.  
+
+For intraneural stimulation, the implanted stimulation leads penetrate the nerves either longitudinally or transversely. Raspopovic \textit{et al.} stimulated the median and ulnar nerve fascicles of a transradial amputee by implanting transversal multichannel intrafascicular electrodes. The sensory feedback enabled the amputee to adjust grasping forces and discriminate the stiffness and shapes of three different objects \cite{raspopovic2014restoring}. 
+
+
+\subsection{Targeted muscle reinnervation}
+The targeted muscle reinnveration (TMR) surgery transfers the residual arm nerves to a spare target muscle \cite{kuiken2013targeted}. The target muscles are normally in the residual limb or the thorax.  
+After the surgery, sensory feedback devices are applied on the surface of the skin over the target muscle. The sensory feedback part is still done in an non-invasive manner, thus the sensation capacity is limited, compared with that of the invasive approaches.
+Kim \textit{et al.} had designed a tactor incorporating tapping, static and dynamic pressure, vibration, and shear force for providing sensory feedback for a TMR amputee \cite{kim2012haptic}. The results indicate significant improvements of grip force control with sensory feedback. As mentioned before, sensory feedback can also introduce embodiment feeling. Marasco \textit{et al.} investigated tactile feedback introduced embodiment on targeted reinnervation amputees. They concluded that by providing physiologically relevant haptic feedback, the amputee could incorporate the prosthesis as part of the body, instead of regarding it just as a tool \cite{marasco2011robotic}. TMR is beneficial for both transhumeral amputees and disarticulation amputees by increasing the number of myoelectric input sites for prosthesis control \cite{miller2008improved, kuiken2004use} as well as providing a larger area for sensory feedback. 
+
+
+ \begin{figure}[htb]
+    \centering
+       \includegraphics[width=0.7\textwidth]{images/SchematicsTargetedMuscleReinnervation}
+        \caption{The schematics of targeted muscle reinnervation surgical. The reinnervated nerves residing on the chest provides both the control sites and the sensory feedback stimulation sites.}
+        \label{fig:graphical_representation_single_modalities}
+\end{figure}
+
+
+\subsection{Non-invasive sensory feedback}
+Despite the successful examples of invasive sensory feedbacks, the high surgical risk still impose concerns for many amputees. In various cases, non-invasive sensory feedback is a more practical way for providing sensory feedback for amputees. As mentioned before, the main non-invasive approaches include three single modalities: mechanotactile, vibrotactile, and electrotactile, and combined multi-modalities.  A graphical representation of the three single modalities are shown in Fig. \ref{fig:graphical_representation_single_modalities}. 
+Other less reported sensory feedback methods include auditory feedback \cite{gonzalez2012psycho, wilson2016audio, lundborg1999hearing,gonzalez2010multichannel} and skin stretch.
+Auditory feedback explore the possibility to modulate the frequency, volumn, and beating of the sound to represent grasping force or arm reaching trajectory. It has shown good performance when the presented information is limited.
+For skin stretch feedback, the feedback devices need at least two reliable contacting points on the skin. Maintaining the robust contact without slipping is the main challenge. The major challenges for non-invasive sensory feedback device design include: small size to fit in the socket, light weight, low power consumption, natural sensation, and integratable. 
+ 
+ \begin{figure}[htb]
+    \centering
+       \includegraphics[width=0.7\textwidth]{images/Non_invasive_sensory_feedback_graphical_representation}
+        \caption{The graphical representation of (a) mechanotactile, (b) vibrotactile, and (c) electrotactile sensory feedback modalities.}
+        \label{fig:graphical_representation_single_modalities}
+\end{figure}
+
+\subsubsection{Mechanotactile}
+Mechanotactile stimulation applies normal force on the skin and it is a modality-matched feedback method for providing force feedback.
+The devices used for providing mechanotactile feedback include but not limited to: servo motors, voice coil, hydraulic system, and pneumatic system \cite{childress1980closed, antfolk2013sensory, schofield2014applications, svensson2017review}.
+
+
+Meek \textit{et al.} implemented a single motor-driven pusher to provide proportional force feedback \cite{meek1989extended}. The testing results with 10 subjects have shown improved manipulation and grip control with the sensory feedback system.
+
+Patterson \textit{et al.} has developed a hydraulic pressure cuff to provide modality-matched sensory feedback and compared the pressure-to-pressure system with vibrotactile and vision feedback in the force matching task. Grasping pressure replication errors and error variability haven shown to be reduced with the presence of sensory feedback system.
+
+Antfolk \textit{et al.} has implemented a passive air-mediated pressure sensory feedback system. The system consists of three silicone pairs. Each pair consists of one silicone bulb, as force sensor, and one silicone pad, placed on the remaining stump of amputees or forearm of healthy subjects, for providing sensory feedback. When pressure is applied on the silicone bulb,  the silicone pad will bulge and create pressure sensory feedback. This passive pneumatic system is flexible and light-weighted. The system has proved efficient in localization and force level identification tests \cite{antfolk2013sensory}.
+
+\subsubsection{Vibrotactile}
+Despite being a modality-mismatched sensory feedback, vibrotactile sensory feedback is a widely used because of its compact size, ease of use, relatively fast response speed,  and low power consumption \cite{schofield2014applications}. The vibrotactile modulating parameters include frequency, amplitude, location, beat interference, and timing. The commonly used vibrotactile devices include linear electromagnetic actuators (e.g. solenoid, voice coil, linear resonant actuator), rotary electromagnetic actuators (e.g. eccentric rotating mass ), and non-electromagnetic actuators. 
+
+The linear electromagnetic actuators (LEA) are used to create a fast tapping sensation. The commonly used types include solenoid, voice coil, and linear resonant actuators. LEAs are built using electromagnetism. The actuator can be simplified as a conductive wire coil and a magnet. When a current flows through the coil, a magnetic field is created and thus the magnet is moved from or to the coil. By applying a oscillating current to the coil, a bobbing movement is created. The working principle of the LEAs is the same as in audio speakers. A solenoid is a piece of ferromagnetic material enclosed in a coil while a voice coil is a piece of permanent magnet enclosed in a coil. Some commercial coin type voice coils are designed for haptic rendering: C2 tactor (Engineering Acoustics, Inc \cite{c2_tactor}) and the  pancake linear resonant actuators (LRAs) from Precision Microdrives \cite{linear_resonant_actuators}.
+
+Most rotary electromagnetic actuators consists of an off-center mass fixed to the output shaft.  These devices are called eccentric rotating masses (ERMs). The frequency and amplitude are coupled together and proportional to the applied direct current (DC) voltages. There are wide range of commercial ERMs to choose from, both shafted (cylindrical) and shaftless (coin or pancake) types.
+
+The nonelectromagnetic actuators are based on object shape deformation. 
+Actuators based on piezoelectric effect and shape memory effect are used for haptic rendering. Piezoelectric effect is the ability of certain material to vibrate when a voltage is applied or to generate current when mechanical stress or vibration is applied.  A disk or a beam constitute of several piezoelectric transducers are often used for vibrotactile display \cite{poupyrev2002ambient}. 
+Shape memory alloys are a type of material that changes its shape when heated and return to their original form when the heat is removed. The heat can be induced through Joule heating. Shape memory alloys have been proposed to use as artificial muscle \cite{taniguchi2013flexible} and sensory feedback device \cite{sawada2016tactile}. The main drawback of the two mentioned nonelectromagnetic actuators is that their small deformation is not perceivable on hairy human skin. Many of the non-electromagnetic actuators require high voltage (in the range of \SI{1000}{V}) or produce only small amplitude (can only be perceived on the finger tip, but not on the arm or the other part of the body). Thus, the applications of non-electromagnetic actuators on wearable sensory feedback devices are limited.
+
+
+A qualitative comparison of the above mentioned actuators are shown in Table \ref{tab:vibrotactile_actuator_comparison}. 
+\begin{table}[htp!]
+\center
+\caption{Comparison of different vibrotactile actuators}
+\label{tab:vibrotactile_actuator_comparison}
+   \begin{tabular}{ |c|c|c|c|c|}
+       \hline
+        Actuator      &  Advantages                  &   Disadvantages                 \\
+       \hline 
+        LEA            & \shortstack{High expressiveness \\ Low power}     & \shortstack{Heating\\Complex driving circuit} \\                                                                       
+       \hline
+       ERM            & \shortstack{Simplicity\\Reliability\\Low power}        & \shortstack{Coupled frequency \\Starting delay}\\
+       \hline
+       Piezoelectric  & \shortstack{Reverse effect\\Compact size\\Fast response time (< 5 ms) \\High acceleration}                   & \shortstack{Small deformation}\\
+       \hline
+       SMA             & \shortstack{Small\\High power-to-weight ratio}     &\shortstack{Temperature sensitive\\ Slow response time (>100 ms)\\Large hysteresis\\High energy consumption} \\
+       \hline
+    \end{tabular}
+\end{table}
+
+As the most reported feedback method, vibrotactile sensory feedback systems have been used for providing information regarding hand aperature \cite{clemente2016non}, grasping force \cite{patterson1992design}, contact location \cite{stepp2012vibrotactile}, and so on.
+Besides using single vibrators, Cipriani \textit{et al.} have stacked pancake type vibrators to provide stimuli with modulate amplitude, frequency, and beat interface. The devices were tested on healthy subjects and the testing results indicate high discrimination accuracy of force levels, locations, and stimulation patterns \cite{cipriani2012miniature}. Despite being a modality-mismatched feedback method, vibrotactile sensory feedback has also been reported to introduce body ownership feeling to prosthetic users \cite{d2012vibrotactile, d2015vibrotactile}. 
+
+
+\subsubsection{Electrotactile}
+The electrotactile is also a modality-mismatched stimulation methods. It activates the sensory nerves under the skin by applying a surface electrical current, delivered through the surface electrodes made from conductive plates. The evoked sensation ranges from pressure, vibration, tickling, and slight pain. Compared to the other two non-invasive sensory feedback methods, electrotactile stimulation devices have the advantages of thinness and contact robustness. But the electrotactile have several issues need to be solved: maintaining the strength of felt sensation, providing natural sensation, and the pain caused by the stimulation.
+
+Electrotactile stimulation can be modulated either by the current pulse amplitude or by the current pulse frequency \cite{anani1979discrimination}. AM stimulation is more intuitive while FM stimulation takes time to learn. For a trained subject, both modulation methods can provide five to six discrete levels (recognition rate $\geqslant$  \SI{75}{\%}). Other modulation parameters include stimulation sites, number of pulses, number of stimulation channels, and interleaved time between channels.
+
+Shannon \textit{et al.} has applied electrical stimuli above the median nerve on amputees fitted with myoelectric prosthesis \cite{shannon1979myoelectrically}. The pulse frequency is proportional to the sensed pinch force. The amputees reported to have increased confidence while using their prosthesis.
+Scott \textit{et al.} has investigated the compatibility of EMG with electrotactile sensory feedback \cite{scott1980sensory}.
+Anani \textit{et al.} has compared amplitude modulated (AM) electrotactile stimulation with frequency modulated (FM) electrotactile stimulation on transradial amputees \cite{anani1979discrimination}. They concluded that AM afferent electrical nerve stimulation can be used for convey sensory feedback provided training and stable electrodes are available.
+Choi \textit{et al.} used single electrode and different modulation to create both vibrational and tapping feeling \cite{choi2017mixed}. 
+There are still several issues related with electrotactile stimulation that need to be solved: providing natural tactile sensation, minizing the evoked pain, and stablizing stimulation strength \cite{kajimoto2016electro}. 
+
+
+\subsubsection{Multi-modal sensory feedback}
+Besides the aforementioned three modalities, there are also attempts to combine different modalities for sensory feedback. 
+Several researchers have attempted to compare the effectiveness when combining visual feedback with other modalities and the results indicate better performance when visual feedback is present \cite{saunders2011role, patterson1992design}. Other researchers have also combined several aforementioned feedback methods to increase psychophysics performances \cite{d2014hyve, huang2017multi} or to increase the feedback modalities \cite{jimenez2014evaluation}.
+
+
+\subsection{Thermal feedback}
+
+Thermal feedback is less investigated because it is not crucial in many activities of daily living (ADLs). But it is important for safety and material identification as well as personal comfort and emotions. Moreover, the temperature information cannot be attained through vision. Most thermal sensory feedback systems are based on thermoelectric device, also known as Peltier elements. 
+Ho and Jones' paper has reported a thermal display based on Peltier elements and a semi-finite body model \cite{ho2007development}. The display was tested on able-bodied subjects' fingertips and showed that they were capable to identify different objects with limited visual cues.
+Ueda \textit{et al.} has reported a Peltier based temperature feedback device. This device was incorporated into a myoelectric prosthesis and tested on ten healthy subjects with an average \SI{88}{\%} success rate in a five temperature levels identification test \cite{ueda2016development}.
+
+Some research has also incorporated thermal feedback with other modalities \cite{nakatani2016novel, kim2008design}.
+Kim \textit{et al.} has incorported Peltier elements in a tactor, providing thermal feedback besides normal force, shear force, and vibration feedback \cite{kim2008design}. 
+Jimenez \textit{et al.} has incorporated a Peltier element in a tactile feedback system that can be worn on the arm. One upper limb prosthetic users have tested the system and could distinguish three different temperature levels \cite{jimenez2014evaluation}. Nakatani \textit{et al.} has improved the design by providing four units of Peltier devices for sensory feedback applications \cite{nakatani2016novel}.
+
+
+\subsection{Proprioceptive sensory feedback}
+Proprioception plays a crucial role in prosthetic control as well as embodiment. Without proprioceptive information, the prosthetic users can only rely solely on visual feedback, which is tiring and sometimes impractical. By incorporating proprioceptive information, the prosthetic control accuracy can be improved in non-sighted, even sometimes in sighted conditions \cite{blank2010identifying}. Different types of proprioceptive information  have been reported to feedback to the prosthetic users, including elbow angle, hand aperture, relative position of the arm, and so on. One of the first attempt to provide proprioceptive feedback is to couple the motion of a prosthetic joint to the motion of an intact joint \cite{simpson1974choice, pistohl2015artificial}. Sensory substitution methods using vibrotactile \cite{kapur2010spatially, witteveen2015vibrotactile, bark2008comparison} and skin stretch has also been explored. Witteveen \textit{et al.} has applied an array of pancake type of vibrators on the lower arm to indicate the hand aperture. The localtion of each of the eight vibrators indicate a discrete aperture value \cite{witteveen2015vibrotactile}.  Bark \textit{et al.} has implemented a bench top skin stretch device with two contact points. The contact points rotate within $\pm 45 ^{\circ} $ to apply skin stretch \cite{bark2008comparison}. 
+
+
+A summary of reported sensory feedback system and the experimental results are shown in Appendix B. 
+
+
+\section{WiseSkin}
+The WiseSkin project aims at providing natural and intuitive sensory feedback to upper arm amputees. The WiseSkin system includes a) wireless sensory nodes embedded in stretchable artificial skin, b) reliable short-range communication protocol, and c) vibrotactile stimulation array and driving system  (Fig. \ref{fig:wiseskin_system_diagram}). The artificial skin is attached to a robotic hand. It works as a capsule for the wireless sensory nodes, waveguide, and powering system. The communication protocol is an event-driven protocol. The vibrotactile stimulation array are arranged according to the phantom map shape distribution. More details of the project will be introduced in Chapter \ref{chap_sensory_feedback_system}. 
+
+ \begin{figure}[hbt!]
+    \centering
+        \includegraphics[width=\textwidth]{images/WiseSkinDiagram.pdf}
+        \caption{WiseSkin system diagram. The hand gloves are embedded with miniaturized sensors. The sensor data is communicated wirelessly to a master node. Then the information is processed and used to drive actuators embedded in the socket.  }
+        \label{fig:wiseskin_system_diagram}
+\end{figure}
+
+
+
+
+\section{Thesis organization}
+To improve the usability of upper extremity prostheses, both feed-forward control and feedback designs have to be considered. In this thesis, firstly, novel pattern recognition based myoelectric control is proposed and the testing results on three EMG databases are presented in Chapter \ref{chap:myographic_signal_pattern_recognition}. 
+The the rest of the thesis focuses on providing non-invasive sensory feedback.
+To design a sensory feedback, several steps are needed: define the area to place the stimulation devices, define stimulation parameters, design stimulation devices, and incorporate the stimulation devices into the whole sensory feedback systems. This thesis is organized according to the sensory feedback system design flow.
+In Chapter \ref{chap_automatic_hand_phantom_map_generation_detection},  the automatic hand phantom map detection algorithms are proposed and tested on both reported phantom maps and generated phantom maps.
+In Chapter \ref{chap_psychophysics_models}, the psychophysical models of upper limb perception is outlined, together with the experimental results to validate the models.
+In Chapter \ref{chap_non_invasive_sensory_feedback}, the design and testing of non-invasive sensory feedback arrays are described, as well as the experimental results tested on healthy subjects and amputees.
+In Chapter \ref{chap_sensory_feedback_system}, we focus on the sensory feedback system integration and experimental results tested on one amputee subject. 
+In the final chapter, the PhD work is summarized and the outlook of the work is depicted.
+
+

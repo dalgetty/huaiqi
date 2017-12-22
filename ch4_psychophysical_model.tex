@@ -1,0 +1,611 @@
+\chapter{Psychophysical Models}
+\label{chap_psychophysics_models}
+%\section{Introduction} 
+%\textcolor{red}{Reference: Tactile Displays: Guidance for Their Design and Application}
+%
+%During the last decades, there are many research focusing on the design of haptic interface from psychophysical, mechanical, electrical, and computer science aspects. 
+%Haptic interfaces are very useful in communicating non-visual information and they have been used in many fields including: teleoperation or telemanipulation \cite{wilson2014advancement}, navigation \cite{van2005waypoint}, gaming \cite{Steam2013}, virtual reality \cite{iwamoto2008airborne, NullSpace2016},  mobile devices \cite{mackenzie1997tactile}, and so on. In order to design effective haptic devices, fundamental knowledge of human tactile perception is needed. 
+%
+%Human senses the tactile information through mechanoreceptors \cite{gescheider2010information}. There are mainly four types of mechanoreceptors in the glabrous skin i.e. hairless skin, e.g. the palm, finger tips: Pacinian corpuscles (PC), Meissner's corpuscles (MC), Merkel's discs (MD), and Ruffini endings (RE). For hairy skin, there is one more receptor: the hair-root plexus (follicle), mainly responsible for low frequency ($<$  \SI{80}{Hz}) vibration detection \cite{burgesscutaneous1973, bolanowski1994hairy}. The PC in the hairy skin do not exist in the superficial subcutaneous regions, but reside in the deeper tissue \cite{calne1966vibratory}.
+%
+%The major receptors can be classified according to their adaptive rate or receptive field sizes (Table \ref{table:ReceptorClassification}). The adaptive rate of a mechanoreceptor is the temporal variation in the number of potential discharges produced by a given receptor in response to a constant stimulus. Merkel's discs (MD) and Ruffii endings (RE) are slow-adapting (SA) type I and type II mechanoreceptor, respectively. Meissner's corpuscles and Pacinian corpuscles are rapid-adapting (RA) type I and type II mechanoreceptor, respectively. Type I and type II represent small and large receptive field sizes.  The receptive field sizes of a receptor shows the area within which a given intensity stimulus can excite the receptor. It varies from $1-2 mm^2$ to $45 cm^2$ (Fig. \ref{fig:mechanoreceptors}).
+%
+%\begin{table}[h]
+%\caption{Classification of four major types of mechanoreceptors}
+%\label{table:ReceptorClassification}
+%\begin{center}
+%\begin{tabular}{|c|c|c|c|c|}
+%\hline
+%\shortstack{Receptor \\type} & \shortstack{Adaptation\\rate} & \shortstack{Response \\frequency \\(Hz)}  & \shortstack{Receptive \\field size} & Function \\
+%\hline
+%MD & SA-I                 & 0 - 10                           & \shortstack{Small, \\well defined}  & \shortstack{Edges, \\intensity} \\
+%\hline
+%RE & SA-II          & 0 - 10                            & \shortstack{Large,\\ indistinct}       & \shortstack{Static force, \\skin stretch}\\
+%\hline
+%MC&RA-I          & 20 - 50                          & \shortstack{Small, \\well defined}   & \shortstack{Velocity, \\edges} \\
+%\hline
+%PC &RA-II         & 100- 300                       & \shortstack{Large, \\indistinct}       & \shortstack{Acceleration, \\vibration} \\
+%\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+%
+%   \begin{figure}[thpb]
+%      \centering
+%      \includegraphics[width=0.48\textwidth]{images/Mechanoreceptor.jpg}
+%      \caption{The illustration of four types of mechanoreceptors in glabous skin \cite{ bolanowski1994hairy}.}
+%      \label{fig:mechanoreceptors}
+%   \end{figure}
+%   
+%%To design an effective haptic communication device, there are several aspects to be taken into consideration:
+%%\begin{itemize}
+%%\item The stimulation modality: the commonly used ones include mechanotactile, vibrotactile, electrotactile, thermal, or kinematic.
+%%\item The location of the the haptic communication device. The human skin sensitivity is different across the body. The most sensitive areas include the fingertips, tongues, and face.
+%%\item The minimal needed energy to give a perceivable signal. This can be specified by absolute threshold (in Subsection \ref{subsec:absolute_thresholds}).
+%%\item How much more intensity do I need to put in order to create a detectable difference. This is called just-noticeable difference (in Subsection \ref{subsec:just_noticeable_difference}).
+%%\item How close can I put each stimulation device, i.e. two point discrimination distance (in Subsection \ref{subsec:two_point_discrimination}).
+%%\item How many patterns can a user distinguish, i.e. localization (in Subsection \ref{subsec:localization}).
+%%\item How fast can I communicate (in Subsection \ref{subsec:Information_transfer}).
+%%\end{itemize}
+%
+%
+%%The vibrotactile modality feedback mainly involves the two rapid adapting receptors: Merkel's disk and Pacinian corpuscles which has the large receptive field. This is the reason why it is difficult to focus vibrational signal to a small specific point. 
+%%The RA system appears to be responsible for the detection of ¯utter,slip and motion across the skin surface \cite{}.
+%%For our research, we aim at providing haptic feedback on the arm.
+%
+%
+%This chapter reviewed the previous literature on vibrotactile, mechanotactile, and thermal perception, proposed some mathematical models, and validated the models with experiments on healthy subjects as well as amputees.
+%
+%The goal of the model is to help shortern the design cycle of haptic interface. It provides haptic designers a virtual prototyping tool to test their design specifications. 
+%Many of the haptic perception models in the literature are verbal models, namely, a set of descriptions derived from observations or psychophysical testing data. Although providing a good conceptural understanding of haptic perception, verbal models lack explicitation, sufficienciency, and clarity. Therefore, we propose to use functional equation models to describe haptic perception on the upper arm, providing a quantitative descriptions of perception data and attempting to characterize perception patterns.  Haptic communication devices placed on the arm or torso will not affect daily life, as opposite to finger- or hand-attached devices \cite{piateski2005vibrotactile,chatterjee2007brain}. In this way, the hands are free to do manipulation tasks.  The skin on the arm has higher sensitivities than the back or torso, and the arm-attached devices are easier to mount and dismount \cite{schatzle2006evaluation}.
+%
+%Section \ref{sec:vibrotactile_modality} describes the mathmatical models of vibrotactile perception on the arm, including minimal detectable level, just noticeable distance, and minimal detectable level. Section \ref{sec:mechanotactile_modality} presents the models for mechanotactile perceptions. Section \ref{sec:thermal_modality} shows the models of thermal perception. Section \ref{sec:experimental_validation} describes the the experiments and results for model validation. Section \ref{sec:discussion} discusses the fitting between the model and experimental results and the aspects that are not covered in the mathematical models. Finally, Section \ref{sec:conclusion} concludes the paper and  propose some examples to use the model for haptic interface designs. 
+%
+%
+%
+%\subsection{Mechanotactile modality}
+%\label{sec:mechanotactile_modality}
+%Mechanotactile has no vibrational signals and thus has the potential advantage of providing higher density array.
+%
+%\subsubsection{Minimal detectable level}
+%Weinstein has investigated the absolute thresholds on different body sites 
+%For static force, Sherrick \textit{et al.} measured that fingertips can detect \SI{80}{mg} force and the palm can detect \SI{150}{mg} \cite{sherrick19822}.
+%
+%\subsubsection{Just noticeable difference}
+%Sensinger \textit{et al.} has investigated Weber's ratio of three amputees with targeted reinnervation and compared Weber's ratios of the targeted reinnveration area with the contralateral skin. The results have shown that there is no significant difference between the reinnervated area and their contralateral skin area \cite{sensinger2009examination}.
+%
+%Tan \textit{et al.} investigated the average Weber's ratio of pressure (static force) on different part of the healthy subjects' lower arms as a function of contact area (Fig. \ref{fig:AverageJND}) \cite{tan1994human}. The results have shown that the Weber's ratio decreases as the contact sizes increases, indicating that it needs less increment to let the subject feel the change.
+%
+%   \begin{figure}[thpb]
+%      \centering
+%      \includegraphics[width=0.48\textwidth]{images/AverageJND.jpg}
+%      \caption{The average Weber's ratio as a function of contact sizes.}
+%      \label{fig:AverageJND}
+%   \end{figure}
+%
+%\subsubsection{Two point discrimination distance}
+%The two point discrimination distance was influenced by the measuring methods.
+%
+%\subsection{Thermal modality}
+%\label{sec:thermal_modality}
+%Thermal feedback has begun to be incorporated into haptic displays \cite{bergamasco1997thermal, ottensmeyer1997hot, wilson2011some}. 
+%Thermal feedback is used to convey thermal property of objects, and it is also useful for object identification, material discrimination \cite{jones2003material}, and create a richer feedback about the virtual world \cite{monkman1993thermal}. It can also replace vibrotactile feedback in bumpy environment, because vibrotactile feedback can be influenced by the body movement.
+%
+%\textcolor{red}{Thermal feedback overview}
+%Warm or Cool, Large or Small? The Challenge of Thermal Displays \cite{jones2008warm}.
+%
+%
+%
+%\subsubsection{Thermal receptors}
+%Two types of receptors mediating temperature perceptions: the cold and warm receptors \cite{jones2002psychophysics}. Cold receptors respond to temperature decrease ranging from 5 to 43 $^{\circ}$C, while warm receptors responds to temperature increase up to 45  $^{\circ}$C. The conduction velocity of warm and cold thermoreceptors are 1-2 m/s and 10 to 20 m/s in the glabrous skin, respectively \cite{jones2002psychophysics}.
+%
+%\subsubsection{Noticeable temperature changes}
+%There are many factors influencing human ability to discriminate temperature changes: the place of the stimuli, the relative temperature changes, the speed of temperature change, and the baseline temperature.
+%
+%\subsubsection{influence of temperature changing speed}
+%The skin's ability to detect relative thermal changes depends on the temperature changing rate. If the skin temperature changes slowly (below 0.5$^\circ$C /min), it needs 5 to 6 $^\circ$C relative temperature changes in order for a person to feel the difference. However, if the change is fast (around 6 $^\circ$ /s), the person can detect 0.5 $^\circ$C temperature change \cite{} (illustrated in Fig. \ref{fig:temperature_chaning_vs_JND}).
+%
+%\begin{figure}[thpb]
+%      \centering
+%      \includegraphics[width=0.35\textwidth]{images/TemperatureChaningvsJND.png}
+%      \caption{The detectable temperature change $\Delta T$ as a function of temperature changing rate. $\Delta T = T_{current} 32 ^\circ$C.}
+%      \label{fig:temperature_chaning_vs_JND}
+%\end{figure}
+%
+%
+%\subsubsection{influence of contact sizes}
+%Multi-site thermal stimulation may cause confusion for the subject. Thus, a subject is not able to identify the spatial pattern of a thermal stimulus or distinguish whether one or multiple sites are being stimulated.
+%
+%\subsection{Temporal acuity}
+%Some methods have been proposed to measure the temporal resolving capacity of the skin. One widely adopted measurement indicates that the skin can distinguish successive tap up to 200 Hz (Geseheide 1974). But the temporal acuity is not fully investigated when complex pattern or different modalities (e.g. vibration or electrotactile) is applied. 
+%
+%
+%
+%
+%
+%\section{Vibrotactile modality}
+%\label{sec:vibrotactile_modality}
+%%\subsection{Vibrotactile applications}
+%Among the aforementioned wide range of haptic rendering modalities, vibrotactile is  currently the most used and probably the easiest to integrate into wearable devices \cite{choi2013vibrotactile}. 
+%It has many applications: telemanipulation \cite{dennerlein1997vibrotactile}, sensory feedback for amputees \cite{antfolk2013sensory}, reading devices for visually impaired \cite{goldish1974optacon,levesque2008tactile}, automated driving \cite{petermeijer2016vibrotactile}, and navigation \cite{van2005waypoint, elliott2010field}.
+%
+%When designing a vibrotactile stimulation array, there are several aspects to be considered: what types of vibrotactile devices to use, how to spatially arrange the devices, what amplitude and frequency are needed \cite{choi2013vibrotactile}. 
+%%To decide this questions, it is important to understand the human sensitivity of the skin. 
+%In this section, the absolute threshold (subsection \ref{subsec:vibro_absolute_thresholds}), just-noticeable difference  (subsection \ref{subsec:vibro_just_noticeable_difference}), two-point discrimination (subsection \ref{subsec:vibro_two_point_discrimination}), localization (subsection \ref{subsec:vibro_localization}), and information transfer (subsection \ref{subsec:vibro_information_transfer}) of vibrotactile stimulation are discussed and their mathematical models are proposed.
+%
+%\subsection{Vibrotactile absolute thresholds}
+%\label{subsec:vibro_absolute_thresholds}
+%The absolute threshold (RL as in \textit{Reiz Limen}), or minimal detectable signal, is defined as the minimal needed energy of a stimulus to be detectable by humans  \cite{colman2015dictionary}. 
+%For vibration stimulation, the five variable dimensions to convey information are: frequency, amplitude, waveform, duration, and location. Among the five, waveform detection was reported as relatively insensitive and hard to distinguish \cite{summers1997information}. Duration and location was mainly used to compose patterns. Variations of amplitude and frequency of a certain stimulation device was mos commonly used and widely investigated \cite{rothenberg1977vibrotactile, tommerdahl2005human,pongrac2006vibrotactile,pongrac2008vibrotactile}.
+%
+%However, frequency and amplitude of a vibrotactile stimulation are often confounded. For example, the perceived frequency increases as the stimulation amplitude increases at a constant speed \cite{von1959synchronism,morley1990perceived}. So in current paper, we present the stimulation intensity as a frequency $f$ and amplitude $A$ pair: ($f$, $A$). 
+%
+%The parameters affecting  the absolute thresholds of vibrotactile perception include location \cite{bolanowski1994hairy}, contact sizes \cite{verrillo1963effect},  number of pulses \cite{verrillo1965effect}, age \cite{}, and temperature \cite{green1977effect}.
+%
+%\paragraph{The influence of location}
+%The sensitivity of glaborous skin is around 10 degree of magnitude lower than that of the hairy skin \cite{}. For human arm (healthy or remaining stump), it is hairy skin. The 
+%
+%
+%
+%\paragraph{The influence of contact sizes}
+%Verrillo \textit{et al.} have tested the relationship between absolute amplitude threshold and frequency on the thenar eminence. They observed that the relationship of absolute amplitude threshold of a vibrator with a large contact area ($>$\SI{0.32}{cm^2}  with frequency can be represented by a bi-limbed curve, but the absolute amplitude of a vibrator with a small contact area is not affected by the frequency changes \cite{verrillo1963effect} (Fig. \ref{fig:ThresholdDisplacementVSFrequencyVSContactSizes}). 
+%
+%   \begin{figure}[thpb]
+%      \centering
+%      \includegraphics[width=0.4\textwidth]{images/ThresholdDisplacementVSFrequency.jpg}
+%      \caption{Absolute thresholds of vibration amplitude as a function of stimulation frequency with different contact sizes (selected data from \cite{verrillo1963effect})}
+%      \label{fig:ThresholdDisplacementVSFrequencyVSContactSizes}
+%   \end{figure}
+%   
+%The widely accepted theory to explain the differences caused by different contact sizes is the spatial summation ability of PCs. Since PCs exist both in glabrous and hairy skin, although the data from Fig. \ref{fig:ThresholdDisplacementVSFrequencyVSContactSizes} were empirical data on glabrous skin, we hypothesize that this relationship will also be observed in hairy skin.
+%Gescheider \textit{et al.} proposed a theory to explain the correlation between contact size and minimal detectable: the PC channel integrates vibrational energy  (the square of amplitude $A$) over the area of applied stimuli $S$: \cite{gescheider2010information}:
+%
+%\begin{equation}
+%\label{eq:energy_integration}
+%A^2 \times S = \text{Constant},
+%\end{equation}
+%where $A$ is the amplitude, $A^2$ represents the energy level, and $S$ is the stimuli size \cite{gescheider2002four}.
+%
+%It was also observed that at lower stimulation frequencies (below \SI{40}{Hz)}, the absolute thresholds for large contactors are the same as that of small contactors (Fig. \ref{fig:ThresholdDisplacementVSFrequencyVSContactSizes}).  In other word, there is no PC induced spatial summation at lower frequency because the other three channels do not have spatial summation ability \cite{gescheider2001frequency}.  One of the possible explanation is that PCs exist in the deep layers of Dermis (Fig. \ref{fig:mechanoreceptors}), thus lower frequency stimulation cannot reach and active PCs.   
+%
+%We could approximate the just perceived threshold displacement $d_{th}$ as a function of contact sizes and stimulus frequency: 
+%
+% \begin{equation}
+% \label{eq:AbsoluteAmplitudeFrequencies}
+%A _{th} = \begin{cases}
+%             k & \text{if}\ S < S_{t} \ or \ f < f_{t}, \\
+%             \frac{   a 10^{log_{10}f -b} +c   }{\sqrt{S}}    & \text{if } \ S \ge S_{t} \ \text{and} \ f \ge f_{t}
+%            % m(\text{log}_{10}f-b)^2 +c \times S   & \text{if } \ S \ge S_{t} \ \text{and} \ f \ge f_{t}
+%       \end{cases}
+% \end{equation}
+%
+%
+%% \begin{equation}
+%% \label{eq:AbsoluteAmplitudeFrequencies}
+%% d_{th} = \begin{cases}
+%%             k & \text{if}\ S < S_{t} \ or \ f < f_{t}, \\
+%%             m(\text{log}_{10}f-b)^2 +c \times S   & \text{if } \ S \ge S_{t} \ \text{and} \ f \ge f_{t}
+%%       \end{cases}
+%% \end{equation}
+% 
+% 
+%where $k$ is a constant ($k$ =\SI{15}{dB} reported in \cite{verrillo1963effect}), $S$ represents contact area, $S_{t}$ is the threshold value for contact area, $m$ is an individual-dependent parameters,  $f$ is the stimulation frequency in Hz,  $b$ is the optimum stimulation frequency, $b \approx$ \SI{250}{Hz}, 
+%$c$ is a parameter influenced function of contact area and age (A larger contact area results in smaller absolute amplitude threshold, and $c$ decreases as age increases). 
+%
+%
+%
+%%%Here we hypothesize the relationship between $c$ is a linear relationship with age $J$ and contact size $S$:
+%%\begin{equation}
+%%\label{eq:cagesize}
+%%c = c_{\text{min}} + k_1  S + k_2 J
+%%\end{equation}
+%%where $k_1$ and $k_2$ are individual-dependent constants.
+%
+%
+%
+%%\subsubsection{The influence of frequency}
+%%Mahns \textit{et al.} have reported the absolute amplitude threshold on the forearm using a sinusoidal vibratory signal at different fre
+%
+%\paragraph{The influence of age}
+%Some research has revealed age-related decrease in tactile sensitivity for both glabrous skin and hairy skin \cite{wickremaratchi2006effects}.  However, this decrease is not uniform across all the stimulation frequencies \cite{gescheider1994effects}. The reported data have shown that  the vibrotactile sensitivity loss is greater at higher frequencies (mediated by PC channel, see Table \ref{table:ReceptorClassification}) than in lower frequencies \cite{gescheider1994effects}. This could be explained by the loss of receptor due to aging and PC channel's unique spatial-summation property. 
+%
+%We buit a model, relating the young adults' absolute threshold $d_{th,\text{young}}$ to old adults' absolute threshold $d_{th,\text{old}}$ by a linear function:
+%
+%\begin{equation}
+%  \label{eq:RL_age_influence}
+%  d_{th,\text{old}} = \begin{cases}
+%                               \alpha_{J1}  \times d_{th,\text{young}}  & \text{when}\ f < f_{th}, \\
+%                               \alpha_{J2}  \times d_{th,\text{young}}  & \text{when}\ f \ge f_{th}, \\
+%                               \end{cases}
+%\end{equation}
+%where $\alpha_{J1}, \alpha_{J2} > 1$, $\alpha_{J1}<\alpha_{J2}$, $f$ is the stimulation frequency, and $f_{th}$ is the threshold frequency, $f_{th} \approx 175 Hz$ when the skin temperature is normal.
+%
+%\paragraph{the influence of temperature}
+%The absolute thresholds are also influenced by temperature \cite{green1977effect}. As the temperature shifted away from our normal body temperature (around 34$^{\circ}$C), but within non-painful sensation temperture (larger than 15$^{\circ}$C and smaller than 40$^{\circ}$C), the absolute threshold becomes smaller, i.e. the skin becomes more sensitive. At the same time, the optimal frequency (the lowest point in Fig. \ref{fig:ThresholdDisplacementVSFrequencyVSContactSizes}) shifted from around \SI{200}{Hz} to higher frequencies (Table \ref{table:max_frequency_vs_temperature}) \cite{bolanowski1982temperature}. 
+%%Sensitivity was observed to decrease between 37$^{\circ}$C and 42$^{\circ}$C at all tested frequencies (\SI{30}{Hz}, \SI{50}{Hz}, \SI{60}{Hz}, \SI{150}{Hz}, \SI{250}{Hz}).
+%
+%\begin{table}[h!]
+%\centering
+%\caption{Maximum sensitivity frequency at different temperatures}
+%\begin{tabular}{|c|c|}
+%  \hline
+%Temperature ($^{\circ}$C ) &  Maximum sensitivity frequency (Hz)\\ 
+%  \hline
+%20    &   250\\  
+%\hline
+%30    &   175\\
+%\hline
+%40     &  300 \\
+%\hline
+%\end{tabular}
+%\label{table:max_frequency_vs_temperature}   
+%\end{table}
+%
+%So the parameter $b$ in Equation \eqref{eq:AbsoluteAmplitudeFrequencies} is influenced by the skin temperature $T$. Due to limited data in literature (only three data points in \cite{bolanowski1982temperature}), we hypothesize that there is a 2-degree polynomial relationship between maximum sensitivity frequency $b$ and skin temperature $T$:
+%
+%\begin{equation}
+%\label{eq:b_T}
+%b  = p_1 T^2 + p_2 T + p_3
+%\end{equation}  
+%where $p_1$, $p_2$, and $p_3$ are individual dependent parameters, $13 < T < 45$ .
+%
+%From the reported data in  \cite{bolanowski1982temperature}, after parameter fitting, Equation \eqref{eq:b_T} become:
+%\begin{equation}
+%\label{eq:b_T_fitted}
+%b  =  T^2 -57.5 T + 1000
+%\end{equation}  
+%
+%The parameter $c$ in Equation \eqref{eq:AbsoluteAmplitudeFrequencies} is also influenced by the skin temperature:
+%$c$ decreases more in the higher frequencies than in the lower frequencies. So $c$ is a function of skin temperature $T$ and stimulation frequency $f$ \textcolor{red}{rewrite this equation}:
+%
+%\begin{equation}
+%\label{eq:m_T_f}
+% m = \begin{cases}
+%             m_N & \text{if}\ f < f_{T}, \\
+%             \beta_T (T-T_N)   & \text{otherwise },
+%       \end{cases}
+% \end{equation}
+%where $\beta_T$ is an individual-dependent parameter, $f_T$ is the frequency threshold, it differs in each temperature, $T$ is the current skin temperature, ranging from 13 to 45 $^{\circ}$C \cite{heller2013psychology}, and $T_N$ is the typical skin temperature during daily activities , $T_N$ remains between 32 to 35 $^{\circ}$C \cite{jones2002psychophysics}.
+%
+%To summarize, the absolute amplitude threshold $d_{th}$ are influenced by contact sizes $S$, stimulation frequency $f$, age $J$, and temperature $T$:
+%
+% \begin{equation}
+% \label{eq:AbsoluteAmplitudeFrequencies}
+% d_{th} = \begin{cases}
+%             k & \text{if}\ S < S_{t} \ or \ f < f_{t}, \\
+%             m(\text{log}_{10}f-b)^2 +c   & \text{if } \ S \ge S_{t} \ \text{and} \ f \ge f_{t}
+%       \end{cases}
+% \end{equation}
+%where $k$ is a constant ($k$ =\SI{15}{dB} reported in \cite{verrillo1963effect}), $S$ represents contact area, $S_{t}$ is the threshold value for contact area, $m$ is an individual-dependent parameters,  $f$ is the stimulation frequency in Hz,  $b$ is the optimum stimulation frequency, $b \approx$ \SI{250}{Hz}, 
+%$c$ is a parameter influenced function of contact area and age (A larger contact area results in smaller absolute amplitude threshold, and $c$ decreases as age increases). 
+%
+%\subsection{Vibrotactile just noticeable difference}
+%\label{subsec:vibro_just_noticeable_difference}
+%The just noticeable difference (JND) or just detectable intensity increment is the minimum increment by which stimulus intensity must be changed in order to let the subject notice the difference \cite{taylor1963handbook}. This can be described by Weber's Law \cite{weber1834the}, defined as:
+%
+%\begin{equation}
+%\label{eq:WebersLaw}
+%\frac{\Delta I}{I} = w,
+%\end{equation}
+%where $\Delta I$ represents the difference between just noticeable intensity change, $I$ represents the initial intensity, and constant $w$ is called Weber's ratio. The reported Weber's ratios on the arm ranges from 0.17 to 0.38 \cite{mahns2006vibrotactile}. 
+%
+%
+%For vibrotactile, the  subjective intensity $\Psi(I)$ of a vibrotactile stimulation can be expressed by Stevens' Power Law \cite{stevens1968tactile}:
+%
+%\begin{equation}
+%\label{eq:StevensLaw}
+%\Psi(I) = k(A^2f^2)^{a}   % \sum_i k_{f_i} (A_i^2  f_i^2) ^{b_{f_i}}
+%\end{equation}
+%where $k$ is a proportional constant, $a$ is an exponent constant depending on the type of stimulation, $A$ is the stimulation amplitude, and $f$ is the stimulation frequency. 
+%
+%
+%
+%% 
+%The vibrational  JND could be influenced by the cross-influence of amplitude and frequency \cite{franzen1975vibrotactile}. 
+%Some experimental results shows that vibrational JND are mediated by two types of mechanoreceptors: the Meissner's corpuscle and the Pacinian corpuscles \cite{franzen1975vibrotactile, mahns2006vibrotactile}. The two mechanoreceptors have different JNDs (Fig. \ref{fig:JND_two_frequencies}):  the JNDs in the higher frequencies (mediated by Pacinian corpuscles) are more sensitive to relative amplitude changes. 
+%
+%   \begin{figure}[thpb]
+%      \centering
+%      \includegraphics[width=0.3\textwidth]{images/JNDTwoFrequencies.png}
+%      \caption{The average Weber's ratio on the volar forearm as a function of contact sizes with two stimulation frequencies \SI{10}{Hz} and \SI{125}{Hz}.}
+%      \label{fig:JND_two_frequencies}
+%   \end{figure}
+%
+%%This finding is in accordance with Stevens' reported psychophysical data. He found that for the e$a$ \SI{60}{Hz} vibration applied to the fingertip, $a = 0.95$, and for \SI{250}{Hz} vibration applied on the fingertip, $a$ dropped to $0.65$.  
+%We hypothesize that the JND of the arm is a function of stimulation frequencies:
+%
+% \begin{equation}
+% \label{eq:weber_ratio}
+% w        = \begin{cases}
+%             \alpha_1 A + \beta_1 & \text{when}\ f < f_{th}, \\
+%             \alpha_2 A + \beta_2   & \text{when}\ f \ge f_{th}, 
+%       \end{cases}
+% \end{equation}
+%
+%
+%
+%
+%
+%\subsection{Two point discrimination distance of vibrotactile}
+%\label{subsec:two_point_discrimination}
+%The two-point discrimination distance (TPD) is the distance of two nearby object touching the skin that can be felt as two distinct points instead of one \cite{johnson1981tactile}. The commonly used testing methods include grating orientation task, raised letter recognition task, and two-point orientation discrimination task \cite{jonathantong2013two}. Some argue that the two point discrimination distance does not show the true spatial resolution of human perception because the summed intensity of two points stimulation and one point is different. The subjects could also use the intensity clue to distinguish the two points from one points \cite{vega1999surround}. 
+%
+%Compared to mechanotactile stimulation, the two-point discrimination distances of vibrotactile is much larger. One of the possible explanation is that the receptive field of Pacinian corpuscle is larger than the other mechanoreceptors (Fig. \ref{fig:mechanoreceptors}). 
+%Another possible reason why the two-point discrimination distance is larger is because of the vibrational wave propogation (Fig. \ref{fig:example_wave_propogation}) \cite{sofia2013mechanical,cholewiak2001spatial, von1954propagation}.  
+%
+%Jones \textit{et al.} have investigated the vibrational wave propogation using 3-axis accelerometers. It has shown that the vibrational amplitude gradually decreases as the measured points from the vibration center. (Fig. \ref{fig:amplitude_wave_propogation}) It follows an exponential function.
+%
+%\begin{equation}
+%A = \alpha e^{b \cdot d} + c
+%\end{equation}
+%where $A$ is the amplitude at a certain point, $A$ can be the amplitude of x, y, or z axis, $d$ is the distance between the measured point and the vibration center, $\alpha$, $b$, and $c$ are constants, determined by stimulation sites, vibration amplitude, frequency, and individual difference. From reported data, under given condition, $\alpha$ ranges from 0.5 to 1.1, $b$ ranges from -0.1 to -0.4, and $c$ is close to 0 \cite{sofia2013mechanical}. 
+%
+%\begin{figure}{htpb}
+%    \centering
+%    \begin{subfigure}[b]{0.15\textwidth}
+%        \includegraphics[width=\textwidth]{images/MechanicalPropogation.png}
+%        \caption{Mechanical wave propogation on the dorsal thigh. The vibration frequency is \SI{68}{Hz} \cite{von1954propagation}.}
+%        \label{fig:mechanical_propogation}
+%    \end{subfigure}
+%    ~ 
+%    \begin{subfigure}[b]{0.28\textwidth}
+%        \includegraphics[width=\textwidth]{images/VibrationPropogation.png}
+%        \caption{An example of simulated vibrational wave propogation on the upper arm}
+%        \label{fig:simulation_propogation}
+%    \end{subfigure}
+%    \caption{The observed and simulated vibrational wave propogation.}
+%    \label{fig:example_wave_propogation}
+%\end{figure}
+%
+%
+%   \begin{figure}[hbtp]
+%      \centering
+%      \includegraphics[width=0.33\textwidth]{images/AmplitudeWavePropogation.png}
+%      \caption{Amplitude of surface wave caused by vibration.}
+%      \label{fig:amplitude_wave_propogation}
+%   \end{figure}
+%
+%
+%
+%The vibrational amplitude can hardly reach zero along the arm. We conclude that when the amplitude is smaller than a certain threshold $\delta$, then the distance is considered as the minimum two point discrimination distance $d_{TPD}$:
+%\begin{equation}
+%\alpha e^{b \cdot d_{TPD}} + c < \delta
+%\end{equation}
+%
+%
+%
+%
+%%Perez \textit{et al.} has tested the two-point discrimination distance using different pulse burst stimuli on the fingertip. They reported that a distance of \SI{5.1}{mm} for \SI{1/500}{s} and \SI{2.1}{mm} for \SI{1/25}{s} \cite{perez2000two}.
+%%\subsubsection{Vibrational propogation}
+%
+%\subsection{Localization of vibrotactile}
+%\label{subsec:localization}
+%Haptic localization represent humans' ability to  identify the position where the stimuli was applied \cite{cholewiak2004vibrotactile}.
+%
+%The spatial coordinate of a vibrotactile display can a  useful cue to presenting information, especially orientation or location information.
+%It was reported in several study that users of a tactile device can use the site of vibrotactile stimulation on their body as the cue to identify where an event has occurred \cite{van2001tactile, van2005presenting}.
+%
+%The research on 10 healthy subjects conducted by Van Erp \textit{et al.} has indicated that there a uniform acuity on the torso between 2 and \SI{3}{cm} when the subject were asked to indicate whether the second stimuli is on the left or right of the first stimuli. He has also observed that the localization performance was closely related to both temporal ordering and apparent motion \cite{van2005vibrotactile}.
+%
+%Cholewiak \textit{et al.} has investigated the localization performance using vibration on the torsos \cite{cholewiak2004vibrotactile}. The experimental results have indicated that the localization ability is a function of separation among loci, and, most significantly, of place on the trunk. To increase the localization performance, it is better to place the stimuli near anatomical points or to increase the distance between neighboring stimuli.
+%
+%The localization correct rate is influenced by 
+%\begin{itemize}
+%\item the number of stimulation devices $N$
+%\item the distance $d$ between each stimulation device, assuming that they are equally distributed
+%\item age $a$, senior people tend to have less sensitive tactile perception than younger people
+%\item the relative position of a certain tacton within an array $p$: when a device is close to the end, the correct localization rate is higher.
+%\end{itemize}
+%
+%Cholewiak \textit{et al.} reported the correct localization rate using seven or four tactons on the upper arm \cite{cholewiak2001spatial}.
+%The localization correct rate of the 7-tactor linear array attached to the forearm is shown in Fig. \ref{fig:localization_7_tactors}
+%
+%\begin{figure}[!ht]
+%    \centering
+%    \includegraphics[width=0.5\textwidth]{images/Localization_correct_rate.png}
+%     \caption{The localization correct rate of a 7-tactor linear array placed on the forearm (reproduced from \cite{cholewiak2001spatial}). The tactor size is }
+%     \label{fig:localization_7_tactors}
+%\end{figure}
+%
+%From the observation of Cholewiak \textit{et al.} \cite{cholewiak2001spatial}, we could derive that the localization possibility distribution of the $p_th$ tactor $SR_p$ is a Gaussian distribution of each tactor numbers $x$:
+%
+%\begin{equation}
+%SR_p = a \times exp(\frac{-(x-p)^2}{2 \alpha^2})  
+%\end{equation}
+%where $x$ indicate the position of one tacton within an array, $x$ is an integer, $x = 1,2,3, ...N$, $a$ and $\alpha$ are parameters influenced by the stimulation array setting and individual differences. 
+%This equation specify that when stimulating the $p_th$ tactor, the possibility that the user will felt that it is the $x_th$ factor.
+%
+%Cholewiak \textit{et al.} has only investigated a one-dimensional array along the arm, we extend the localization model to a two-dimensional array. For a tactor ($p_x$, $P_y$), the possibility that a person will feel 
+%
+%\begin{equation}
+%SR(x,y) = a \times exp ( -( \frac{(x-p_x)^2}{2 \alpha_x ^2}   +   \frac{(y-p_y)^2}{2 \alpha_y ^2}     )  ) 
+%\end{equation}
+%where $x$ and $y$ indicate the position of one tacton within an vibration matrix, $x$ and $y$ are integers, $x, y = 1,2,3, ...N$, $a$ and $\alpha$ are parameters influenced by the stimulation array setting and individual differences. 
+%
+%
+%
+%
+%\subsection{Information transfer}
+%\label{subsec:Information_transfer}
+%%As a communication tool, the central limitation of a haptic device is its information transfer ability. The previous subsections mainly focus on the skin sensing ability, i.e. the resolution, this subsection will look into how much information and how fast this information can be conveyed.
+%%
+%%Tan \textit{et al.} has developed a vibrotactile version of Morse code and the device was evaluated to have achieved 2.7 bit/s transfer rate when presented on the fingertip \cite{tan1997reception}.
+%%Summers \textit{et al.} has developed vibrotactile display based on time-varying tactile stimuli, and achieved 7 bits/s at the wrist.
+%% 
+%%
+%%
+%%
+%%%According to Vierordt's Law of Mobility, claiming that the more mobile the body site, the greater its sensitivity either to the location of a touch or to the separation between touched locations. 
+%
+%The reported information transfer rate of main sensor's in the body are concluded in Table \ref{tab:information_transfer_main_body_sensors}.
+%
+%
+%\begin{table}[h]
+%\caption{Comparison of the information capacity of body's main sensors \cite{chouvardas2008tactile}}
+%\label{table:ReceptorClassification}
+%\begin{center}
+%\begin{tabular}{|c|c|c|c|c|}
+%\hline
+%     & Information capacity (bits/s) & Temporal acuity (ms) \\ \hline
+%    Fingertip & $10^2$                    & 5 \\ \hline
+%    Ear         &  $10^4$                   & 0.01 \\ \hline
+%    Eye         &  $10^6$ - $10^9$    & 25 \\ \hline
+%\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+%
+%
+%
+%\section{Experimental validation}
+%\label{sec:experimental_validation}
+%In this section, the experimental validation is done on XX healthy subjects as well as XX amputee subjects.
+%
+%\subsection{Vibration perception validation}
+%\label{subsec:vibration_perception_validation}
+%The experiments were done using miniaturized commercial vibrators: eccentric rotating masses (ERMs) and linear resonant actuators (LRAs).
+%
+%\subsubsection{Vibrational minimal detection level}
+%The minimal detectable level is tested by Stevens' classical method of constant stimuli. A range of stimuli with different intensities were presented to the testing subject in a random order to prevent the subject to predict the next stimuli. After each stimulation, the testing subject was required to answer whether or not the stimuli could be felt. According to the answer, a psychometric curve is draw (Fig. \ref{fig:vibro_psychometric_curve}. The absolute threshold is defined as the \SI{50}{\%} of intensity. 
+%
+%\begin{figure}
+%    \centering
+%    \begin{subfigure}[b]{0.15\textwidth}
+%        \includegraphics[width=\textwidth]{images/Vibro_Psychometric_Curve.png}
+%        \caption{}
+%        \label{fig:mechanical_propogation}
+%    \end{subfigure}    
+%    \begin{subfigure}[b]{0.15\textwidth}
+%        \includegraphics[width=\textwidth]{images/Vibro_Psychometric_Curve.png}
+%        \caption{}
+%        \label{fig:simulation_propogation}
+%    \end{subfigure}      
+%    \caption{Psychometric curves from (a) ERM, and (b) LRA. \text{red}{Replace the pictures with real testing data. }}
+%    \label{fig:vibro_psychometric_curve}    
+%\end{figure}
+%
+%\subsubsection{Vibrational just noticeable difference}
+%The subjects were presented with different pairs of stimulation patterns, each pair containing two stimulation pattern with different intensity levels. The subject was required to answer whether he or she felt the difference. The data was analyzed using detection theory.
+%
+%
+%\subsubsection{Vibrational two point discrimination}
+%The subjects were presented with stimulation patterns that containing one or two vibrations. After each stimulation, the subject was required to answer whether he or she felt one or two actuators. 
+%
+%\subsection{Mechanotactile perception validation}
+%\label{subsec:mechano_perception_validation}
+%
+%\textcolor{red}{Similar to the vibrotactile perception validation using servo motors}
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%%The absolute threshold (AT), or minimal detectable signal, is defined as the level at which a stimulus could be detected at a certain percentage (
+%%The two-point discrimination distance (TPD) is the distance of two nearby object touching the skin that can be felt as two distinct points instead of one \cite{johnson1981tactile}. The commonly used testing methods include grating orientation task, raised letter recognition task, and two-point orientation discrimination task \cite{jonathantong2013two}. The two point discrimination distance does not show the true spatial resolution of human perception because the summed intensity of two points stimulation and one point is different. The subjects could also use the intensity clue to distinguish the two points from one points \cite{vega1999surround}. 
+%%
+%
+%
+%
+%
+%%\subsection{Vibrotactile thresholds}
+%%The dependence of vibrotactile thresholds on the frequency of vibration, the area of contact with vibration, the conditions surrounding the contact area, the contact force, the push force, the finger temperature, and the distortion of waveform must be considered when quantifying vibrotactile thresholds.
+%%
+%%The vibrotactile thresholds depends on vibration frequency, contact sizes, contact force, and skin temperature \cite{maeda1994comparison}.
+%
+%%\subsection{Minimal detectable level}
+%%The minimal detectable level (MDL) of vibrotactile stimulation is different from glabrous and hary skin. The MDL on the hairy skin is of an order of magnitude higher than that of the glabrous skin. For hairy skin, at a low frequency (less than \SI{80}{Hz}), the detection is mainly done by hair follicles.  
+%
+%
+%
+%
+%\subsection{Combined sensitivity}
+%The fundamental idea of the multichannel model is that different aspects of the tactile stimulus are independently processed by separate information-processing channels, each with its own specific type of sensory receptor and associated nerve fiber, and it is the combined activity of the channels within the central nervous system that determines overall tactile perception.
+%
+%The multichannel model further evolved with the discovery that the original NP system is actually comprised of three distinct NP systems (Bolanowski et al.,  1988; Capraro et al., 1979; Gescheider, Sklar, Van Doren, and  Verrillo, 1985), each possessing a specific type of nerve fiber and receptor type (Bolanowski et al., 1988).
+%
+%The best sensitivity to skin strain was obtained when the platform temperature was 32 $^{\circ}$. Sensitivity degraded markedly as finger temperature increased past $^{\circ}$ 40\cite{}. 
+%
+%
+%%%\newpage
+%%\section{Experimental validation}
+%% \label{sec:experimental_validation}
+%%The models were validated using some commerical devices.  
+%% 
+%% 
+%% 
+%% 
+%% 
+%%There have been many forms of measuring vibrotactile thresholds in the last decades. The main differences in these methods are:
+%%
+%%\begin{enumerate}
+%%\item Push forces, ranging from 0.1 to \SI{1}{N}.
+%%\item Surround conditions 
+%%\item Contact sizes, ranging from 0.18 to \SI{176}{mm^2}.
+%%\item Vibrational frequencies, ranging from 20 to \SI{840}{Hz}.
+%%\item Measurement methods (Bekesy, constant stimuli method, adjustment method, method of limits, staircase method, force-choice method)
+%%\end{enumerate}
+%
+%
+%
+%\section{Discussion}
+%\label{sec:discussion}
+%\subsection{Different measuring methods}
+%The obse and the elderly normally have higher thresholds
+%
+%Vibrotactile localization accuracy 
+%the ability to correctly identify teh tactors decreases as teh num,ner of tactors increases
+%Adding a reference point increase the ability to localize
+% \cite{Cholewiak}
+% 
+% Adaptation
+% After a long time of the samle stimulation shows as a reduction in the perceived intensity of a signal
+%\subsection{Adaptation and masking}
+%The previous sections have focused on the spatial or intensity aspects of tactile perception. However, it is widely observed that temporal factors also play important parts in tactile perception. The commonly observed phenomena include adaptation and spatial masking.
+%
+%Adaptation is a phenomenon that the skin adapt to a long presented stimulus and the perceived intensity decreases \cite{gescheider2010information}. 
+%
+%Masking occurs when the perception of a target stimulus is changed by a non-target stimulus that overlaps in time and/or space, and masking can interfere with one's ability to localize the target stimulus \cite{gescheider2010information}. 
+% 
+% Masking
+% When tghe perception of a tartget stimulus is changed aby a non.target stimulus that overlaps in time and or space
+% 
+%\section{Conclusion}
+%\label{sec:conclusion}
+%
+%
+%%
+%%\section{sensory feedback system tuning / mapping}
+%%Using current phantom map model, the sensory feedback system mapping is proposed. 
+%%
+%%   \begin{figure}[thpb]
+%%      \centering
+%%      \includegraphics[width=0.48\textwidth]{SensoryFeedbackSystem.pdf}
+%%      \caption{Proposed sensory feedbacj system, incorporating a dense sensor array, reporesented by $M_sens$, a wireless connection between the sensor array and the actuator, which was reporesnted by a mapping matrix $M_{sens->actua}$, and an actuator array placed on the phantom map, which are represented by matices $M_{actu}$ and $M_{pm}$. The real phantom map distribution is unknow. Only by testing, can we get limited knowledge.}
+%%      \label{fig:SensoryFeedbackSystem}
+%%   \end{figure}
+%%
+%%% insert a graph about how the process going
+%%   \begin{figure}[thpb]
+%%      \centering
+%%      \includegraphics[width=0.3\textwidth]{AlgorithmFlow.png}
+%%      \caption{Mapping algorithm flow graph}
+%%      \label{fig:AlgorithmFlow}
+%%   \end{figure}
+%%
+%%
+%%
+%%% insert some examples of how it works
+%%   \begin{figure}[thpb]
+%%      \centering
+%%      \includegraphics[width=0.3\textwidth]{Examples.png}
+%%      \caption{An example of (a) phantom finger distribution (b) vibrational propogation, and (c) response matrix}
+%%      \label{fig:AlgorithmFlow}
+%%   \end{figure}
+%
+%
