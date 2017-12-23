@@ -297,13 +297,13 @@ x^*_M = \text{argmin}_x ( P_{D}(\hat{y_1} | x) - P_{D}(\hat{y_2} | x) ),
 \end{equation}
 where $x^*_M$ is the instance selected for query, $\hat{y_1}$ and $\hat{y_2}$ are the two most likely class labels under the current model $D$, $P_{D}$ represents the distance to the decision boundaries, $x$ represents the feature of the candidate set.
 
-The above mentioned two strategies focuses on adding one instance at a time. In order to achieve faster training, batch-mode active learning is often used, whereby a group of instances is added at a time. To ensure the representativeness of selected instances,  diversity criteria is often used for query data selection. In the current study, we applied angle-based diversity (ABD) as it shows improved classification accuracy when combined with SVM \cite{brinker2003incorporating, demir2011batch}. 
+The above mentioned two strategies focuses on adding one instance at a time. In order to achieve faster training, batch-mode active learning is often used, whereby a group of instances is added at a time. To ensure the representativeness of selected instances,  diversity criteria are often used for query data selection. In the current study, we applied angle-based diversity (ABD), as it shows improved classification accuracy when combined with SVM \cite{brinker2003incorporating, demir2011batch}. 
 The diversity is measured by the cosine angle distance between two samples defined in the kernel space:
 \begin{equation}
 \angle (x_{i},  x_j) = \text{cos}^{-1} \big(   \frac{K(x_i, x_j)}   {\sqrt{K(x_i, x_i) K(x_i, x_j)}  } \big),
 \label{eq:ABD_angle}
 \end{equation}
-where $K(\cdot)$ is the kernel function (the RBF kernel in \eqref{eq:RBF} in our case), $x_i$  and $x_j$ are the features of two instances selected forss similarity measurement.
+where $K(\cdot)$ is the kernel function (the RBF kernel in \eqref{eq:RBF} in our case), $x_i$  and $x_j$ are the features of two instances of selected ?forss? similarity measurement.
 
 The diversity criteria variable $g$ can therefore be expressed as:
 \begin{equation}
@@ -324,9 +324,9 @@ To combine both batch-mode uncertainty measurement and diversity criteria, the a
 \label{chap2:sec:results_and_discussion}
 
 Due to the lack of wearable dense stimulation arrays, the SVM algorithms introduced in Section \ref{chap2:sec:support_vector_machines_in_phantom_map_detection} were tested on 400 generated phantom map models (Fig. \ref{Fig:PSDDistribution}) and some reported phantom map images \cite{antfolk2012sensory, chai2015characterization,bjorkman2016sensory}.
-The phantom map model generation and detection were implemented in MATLAB 2017 (The MathWorks, Inc., United States), running on a HP laptop with an Intel core i5-4300 CPU@\SI{1.90}{GHz}.
-Six types of metrics are defined below and used to interpret the classification accuracy (presented in Subsection \ref{chap2:sec:results:subsec:accuracy}). The timing of each algorithm is presented and examined in Subsection \ref{chap2:sec:results:subsec:timing}. 
-The  impacts of different algorithms, sampling methods,  stimulation array density, and socket shifting on accuracy and timing are discussed, respectively.
+The phantom map model generation and detection were implemented in MATLAB 2017 (The MathWorks, Inc., United States), running on an HP laptop with an Intel core i5-4300 CPU@\SI{1.90}{GHz}.
+Six types of metrics are defined below, and used to interpret the classification accuracy (presented in Subsection \ref{chap2:sec:results:subsec:accuracy}). The timing of each algorithm is presented and examined in Subsection \ref{chap2:sec:results:subsec:timing}. 
+The impacts of different algorithms, sampling methods, stimulation array density, and socket shifting on accuracy and timing are discussed, respectively.
 
 
 \subsection{Simulation setup}
@@ -355,7 +355,7 @@ The potential use of custom-designed coarse stimulation arrays for phantom map d
         \includegraphics[width=\textwidth]{images/MechanoStimulationArray.png}
         \caption{}
     \end{subfigure}    
-    \caption{Two types of stimulation devices: (a) mechanotactile stimulation device and (b) multi-modal stimulation device,  principally used for providing sensory feedback for upper limb amputees. An array consisting of 3 $\times$ 5 multi-modal stimulation devices are also shown (c).}
+    \caption{Two types of stimulation devices: (a) mechanotactile stimulation device and (b) multi-modal stimulation device, principally used for providing sensory feedback for upper limb amputees. An array consisting of 3 $\times$ 5 multi-modal stimulation devices are also shown (c).}
     \label{fig:StimulationDevice}
 \end{figure} 
 
@@ -439,9 +439,9 @@ $ c_{i,a}$ is the real label of the $i^{\text{th}}$ testing set,  $ c_{i,p}$ is 
 
 \begin{itemize}
   \item For $E_A$,  $c_{i,a} \in \{0, 1, 2, 3, 4, 5 \}$, $c_{i,p} \in \{0, 1, 2, 3, 4, 5 \}$. $E_A$ measures the fraction of all misclassified data points of a predicted phantom map.
-  \item For $E_F$, $c_{i,a} \in \{1, 2, 3, 4, 5 \}$, $c_{i,p} \in \{1, 2, 3, 4, 5 \}$. $E_F$ measures the fraction of points belonging to one phantom finger which are falsely classified into another finger, leading to a functional error (wrong finger stimulation when providing sensory feedback).
-  \item For $E_R$, $ c_{i,a} = 0 $, $c_{i,p} \in \{1, 2, 3, 4, 5 \} $. $E_R$ measures the fraction of points  belonging to class $0$ (i.e. no phantom sensation) which are wrongly classified into other classes. When providing sensory feedback, these points do not cause mistakes between fingers, but their stimulation is redundant and costs energy without providing useful feedback. 
-  \item For $E_I$, $c_{i,a} \in \{1, 2, 3, 4, 5 \}$, $c_{i,p} = 0 $. $E_I$ measures the loss of stimulation points which takes place when data points belonging to class $1$ to $5$ (phantom thumb to phantom little finger) are misclassified as class $0$ (no phantom sensation) and therefore not stimulated.
+  \item For $E_F$, $c_{i,a} \in \{1, 2, 3, 4, 5 \}$, $c_{i,p} \in \{1, 2, 3, 4, 5 \}$. $E_F$ measures the fraction of points belonging to one phantom finger which are falsely attributed to another finger, leading to a functional error (wrong finger stimulation when providing sensory feedback).
+  \item For $E_R$, $ c_{i,a} = 0 $, $c_{i,p} \in \{1, 2, 3, 4, 5 \} $. $E_R$ measures the fraction of points  belonging to class $0$ (i.e. no phantom sensation) which are wrongly attributed to other classes. When providing sensory feedback, these points do not cause mistakes between fingers, but their stimulation is redundant and costs energy without providing useful feedback. 
+  \item For $E_I$, $c_{i,a} \in \{1, 2, 3, 4, 5 \}$, $c_{i,p} = 0 $. $E_I$ measures the loss of stimulation points which takes place when data points belonging to class $1$ to $5$ (phantom thumb to phantom little finger) are wrongly attributed to class $0$ (no phantom sensation) and therefore not stimulated.
   \item For $E_P$, $c_{i,a} \in \{1, 2, 3, 4, 5 \}$, $c_{i,p} \in \{1, 2, 3, 4, 5 \}$. $E_P$ indicates the fraction of incorrectly classified phantom sensation points with respect to all the phantom sensation points in the generated phantom map.
 \end{itemize}
 
@@ -487,18 +487,18 @@ To demonstrate the defined metrics, Fig. \ref{fig:ExamplesRealPredictedConfMat} 
 
 \subsubsection{Grand average accuracy}
 \label{chap2:subsubsec:grand_average_accuracy}
-The grand average accuracy is defined as the average error rate over all 400 generated phantom maps (Fig. \ref{Fig:PSDDistribution}) or over the tested phantom map photos. The five types of grand average error rates and phantom sensation coverage ratios of different SVM algorithm and sampling method combinations are presented in Table \ref{tab:grand_average_accuracy}. The reported error rates for active learning (AL) is the smallest error rate under different query strategy, diversity criteria, initial size, and incrementing steps.  
+The grand average accuracy is defined as the average error rate over all 400 generated phantom maps (Fig. \ref{Fig:PSDDistribution}) or over the tested phantom map photos. The five types of grand average error rates and phantom sensation coverage ratios of different SVM algorithm and sampling method combinations are presented in Table \ref{tab:grand_average_accuracy}. The reported error rates for active learning (AL) is the smallest error rate from different query strategies, diversity criteria, initial size, and incrementing steps.  
 
 For the reported phantom map images, the edge of each phantom finger in the phantom map photos presented in the literature (Fig. \ref{fig:reported_phantom_map_classification}(a)) was outlined in Illustrator (Adobe Illustrator CC, United States). Each phantom finger area is assigned a color. Then the outlined image is imported into MATLAB 2017b (The MathWorks, Inc., United States) and down-sampled into a $100 \times 100$ matrix (Fig. \ref{fig:reported_phantom_map_classification}(b)). Each color is mapped to its corresponding grey scale value. The compressed matrix (image) is used for classification. Selected classification results are presented in  Fig. \ref{fig:reported_phantom_map_classification}  (c) and (d). 
 
  \begin{figure}[hbt!]
  \centering
  \includegraphics[width=0.95\textwidth]{images/RealPhantomMapTestingResults_new_2.png}
-  \caption{Examples of (a) the photos of  phantom maps drawn on the remaining stumps ((1)\cite{antfolk2012sensory}, (2)\cite{bjorkman2016sensory}, (3) \cite{chai2015characterization}, (4)\cite{chai2015characterization}, (5)\cite{bjorkman2016sensory}),  (b) the down-sampled phantom map matrices based on the photos,  (c) the predicted phantom maps using OVO-SVM with majority pooling (pooling size = 2 $\times$ 2, and (d) the predicted phantom maps using BT-SVM with majority pooling (pooling size = 2 $\times$ 2).  The phantom map predicted using OVO-SVMs better represent the original shapes of the phantom fingers than the ones using BT-SVMs. Due to the architecture of BT-SVM, the phantom fingers tend to attach to each other.}
+  \caption{Examples of (a) the photos of  phantom maps drawn on the remaining stumps ((1)\cite{antfolk2012sensory}, (2)\cite{bjorkman2016sensory}, (3) \cite{chai2015characterization}, (4)\cite{chai2015characterization}, (5)\cite{bjorkman2016sensory}),  (b) the down-sampled phantom map matrices based on the photos,  (c) the predicted phantom maps using OVO-SVM with majority pooling (pooling size = 2 $\times$ 2, and (d) the predicted phantom maps using BT-SVM with majority pooling (pooling size = 2 $\times$ 2).  The phantom maps predicted using OVO-SVMs better represent the original shapes of the phantom fingers than the ones using BT-SVMs. Due to the architecture of BT-SVM, the phantom fingers tend to become attached to each other.}
   \label{fig:reported_phantom_map_classification}
  \end{figure}
 
-The detection accuracy results obtained by using the reported phantom  map images show similar trends as when using generated phantom maps; the  following analysis does therefore apply to both types, although it will  be mostly focused on the discussion of the generated data. The error  rates of the reported phantom maps are slightly higher than those of the  generated ones, which could be caused by the low average phantom sensation coverage of the former. However, it is hard to draw further conclusions because of the limited sample size.
+The detection accuracy results obtained by using the reported phantom map images show similar trends to those observed when using generated phantom maps; the following analysis does therefore apply to both types, although it will be mostly focused on the discussion of the generated data. The error rates of the reported phantom maps are slightly higher than those of the generated ones, which could be caused by the low average phantom sensation coverage of the former. However, it is hard to draw further conclusions because of the limited sample size.
 
 
 
@@ -552,28 +552,28 @@ $2 \times 2$ MP FSVM            & 14.7 & 2.80  & 7.55 & 4.37  & 7.58  & 1.03 &14
     \end{tablenotes}
   \end{threeparttable}          
 \end{adjustbox} 
-\caption{Grand average error rates and phantom sensation coverage ratios over all 400 generated phantom maps and reported phantom images \cite{antfolk2012sensory, bjorkman2016sensory, chai2015characterization}. The $C$ and $\gamma$ parameters are the ones that result in the smallest $E_A$.For $2 \times 2$ majority pooling,  $\overline{E_{\text{MP}}}$ = \SI{5.35}{\%} for generated phantom maps and $\overline{E_{\text{MP}}}$ = \SI{4.27}{\%} for reported phantom map images. For both generated and reported phantom maps, OVO-SVM produces the smallest error rate. Even though the absolute error rate ($E_A$) for reported phantom maps are higher than the generated ones, the more critical metric (function error rate $E_F$) is still within acceptable range.}
+\caption{Grand average error rates and phantom sensation coverage ratios over all 400 generated phantom maps and reported phantom images \cite{antfolk2012sensory, bjorkman2016sensory, chai2015characterization}. The $C$ and $\gamma$ parameters are the ones that result in the smallest $E_A$. For $2 \times 2$ majority pooling,  $\overline{E_{\text{MP}}}$ = \SI{5.35}{\%} for generated phantom maps and $\overline{E_{\text{MP}}}$ = \SI{4.27}{\%} for reported phantom map images. For both generated and reported phantom maps, OVO-SVM produces the smallest error rate. Even though the absolute error rate ($E_A$) for reported phantom maps are higher than the generated ones, the more critical metric (function error rate $E_F$) is still within the acceptable range.}
 \label{tab:grand_average_accuracy}
 \end{table}
 
 
 
 \subsubsection{The influence of sampling methods}
-To further discuss the influence of sampling methods, Fig. \ref{fig:accuracy_sampling} is presented, illustrating the absolute classification error rate as a function of different sampling methods. The used algorithm is OVO-SVM, over 100 complete phantom maps with 5 phantom fingers. 
+To further discuss the influence of sampling methods, Fig. \ref{fig:accuracy_sampling} is presented, illustrating the absolute classification error rate as a function of different sampling methods. The algorithm used is OVO-SVM, over 100 complete phantom maps with 5 phantom fingers. 
 
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.6\textwidth]{images/OVOErrorRatesSamplingMethods.PNG}
-    \caption{Absolute error rate $E_A$ vs. $C_{\text{PS}}$ using different sampling methods for OVO-SVM. The used phantom map models are 100 complete phantom maps with 5 fingers.}
+    \caption{Absolute error rate $E_A$ vs. $C_{\text{PS}}$ using different sampling methods for OVO-SVM. The phantom map models used are 100 complete phantom maps with 5 fingers.}
     \label{fig:accuracy_sampling}
 \end{figure} 
 
-For all four algorithms used, applying majority pooling generally reduces error rates, especially the absolute error rate $E_A$ and the functional error rate $E_F$ (Table \ref{tab:grand_average_accuracy}). Random and systematic sampling produce higher rates because the two  sampling methods cannot acquire enough representative data points (as qualitatively illustrated in Fig. \ref{Fig:Sampling_methods}). Only \SI{1}{\%} of the total data points are considered in the training while using random or systematic sampling.
-By applying majority pooling, a larger range of samples can be acquired, normally $p \times q$ more data compared to the other two sampling methods, with $p \times q$ being the sampling size.
+For all four algorithms used, applying majority pooling generally reduces error rates, especially the absolute error rate $E_A$ and the functional error rate $E_F$ (Table \ref{tab:grand_average_accuracy}). Random and systematic sampling produce higher rates because the two sampling methods cannot acquire enough representative data points (as qualitatively illustrated in Fig. \ref{Fig:Sampling_methods}). Only \SI{1}{\%} of the total data points are considered in the training while using random or systematic sampling.
+By applying majority pooling, a larger range of samples can be acquired, normally $p \times q$ more data compared to the other two sampling methods, with a sample size of $p \times q$.
 
 
-It was also observed that for the chosen dense array settings (Table \ref{tab:simulation_setup}), $2 \times 2$ majority pooling produces the smallest error rates for all five error rate metrics (see for example Fig. \ref{fig:accuracy_sampling} for $E_A$). However when using majority pooling in other settings, there is a trade-off between the pooling-induced error rate and the sampling range. A larger pooling size can produce a larger sampling range coverage, but it introduces more pooling-induced errors or noise. For a particular setting, an optimal pooling size exists.
+It was also observed that for the chosen dense array settings (Table \ref{tab:simulation_setup}), $2 \times 2$ majority pooling produces the smallest error rates for all five error rate metrics (see for example Fig. \ref{fig:accuracy_sampling} for $E_A$). However, when using majority pooling in other settings, there is a trade-off between the pooling-induced error rate and the sampling range. A larger pooling size can produce a larger sampling range coverage, but it introduces more pooling-induced errors or noise. For each particular setting, an optimal pooling size exists.
 
 
 
@@ -581,26 +581,26 @@ It was also observed that for the chosen dense array settings (Table \ref{tab:si
 Overall, the OVO architecture produces the lowest $E_A$ (Table \ref{tab:grand_average_accuracy}) and we have observed that the predicted phantom map shapes do indeed best represent the original phantom maps (Fig. \ref{fig:ExamplesRealPredictedConfMat}). Although OVA has the second best performance. We have observed unclassified regions when using this architecture. Examples of the unclassified region can be seen in the dashed black lines running within a phantom map finger in Fig. \ref{fig:ExamplesRealPredictedConfMat}(b).
 
 The architecture of BT-SVM is intrinsically different from the other three multi-class SVMs. All the other three methods classify, to some degree, one class at a time, whereas a BT-SVM tries to separate a group of classes from another group of classes. 
-When classifying a complete phantom map (Fig. \ref{Fig:BT_architecture}), the BT-SVM first classifies between class group $(0,1,2)$ and class group $(3,4,5)$. When then classifying between classes $(3, 4, 5)$, it does not consider the classes $(0,1,2)$, but only looks for the largest margin between the classes ($3,4,5$) themselves. This can result in two of the class regions being connected in the predicted phantom map, such as in Fig. \ref{fig:ExamplesRealPredictedConfMat}(a).
+When classifying a complete phantom map (Fig. \ref{Fig:BT_architecture}), the BT-SVM first distinguishes between class group $(0,1,2)$ and class group $(3,4,5)$. When then distinguishing between classes $(3, 4, 5)$, it does not consider the classes $(0,1,2)$, but only looks for the largest margin between the classes ($3,4,5$) themselves. This can result in two of the class regions being connected in the predicted phantom map, such as in Fig. \ref{fig:ExamplesRealPredictedConfMat}(a).
 
 When using BT-SVM, different tree structures can produce different prediction results, especially when dealing with unbalanced data sets.
-BT-SVM should theoretically have a faster training and classification speed, however, the fast speed is at a price of degraded performance\cite{cheong2004support}.
+BT-SVM should theoretically have a faster training and classification speed - however, the fast speed comes with the price of a degraded performance\cite{cheong2004support}.
 
 
-\subsubsection{The influence of adding fuzzy membership function}
+\subsubsection{The effect of adding a fuzzy membership function}
 Fuzzy SVMs are applied to each decomposition SVM algorithm. 
-A FSVM assigns a fuzzy membership function \eqref{Eq:FuzzyMembershipFunction} to each training data set, so that each training data set makes a different contribution in the training process. A FSVM can reduce the influence of pooling induced errors  $\overline{E_{\text{MP}}}$ \eqref{Eq:EMP}.  
+An FSVM assigns a fuzzy membership function \eqref{Eq:FuzzyMembershipFunction} to each training data set, so that each training data set makes a different contribution in the training process. An FSVM can reduce the influence of pooling induced errors  $\overline{E_{\text{MP}}}$ \eqref{Eq:EMP}.  
 Using FSVMs generally increases the detection accuracy when using the $100 \times 100$ dense arrays. We have also observed that FSVMs reduce the unclassified region for OVA- and OVO-SVM, in accordance with findings in previous literature \cite{abe2002fuzzy, inoue2001fuzzy}. 
 
 
 
 \subsubsection{The influence of active learning}
-As mentioned in Subsection \ref{subsec:chap2:active_learning}, there are different query strategies and diversity criteria for active learnings. Moreover, the initial size and batch size also affect the final accuracy. The error rates using different query strategies, diversity criteria, initial sizes, and batch sizes are listed in Table \ref{tab:AL_different_conditions} and exmples of learning curves when using margin sampling is shown in Fig. \ref{fig:active_learning_curves}.
+As mentioned in Subsection \ref{subsec:chap2:active_learning}, there are different query strategies and diversity criteria for active learnings. Moreover, the initial size and batch size also affect the final accuracy. The error rates using different query strategies, diversity criteria, initial sizes, and batch sizes are listed in Table \ref{tab:AL_different_conditions} and examples of learning curves when using margin sampling are shown in Fig. \ref{fig:active_learning_curves}.
 
 
 \begin{table}[ht!]
 \centering
-\caption{Absolute error rates of active learning SVMs using different query strategies, diversity criteria, initial and batch sizes. The used algorithm is OVA-SVM with  $2 \times 2$ majority-pooling sampling. For ABD, the trade-off parameter  $\lambda = 0.5$. } 
+\caption{Absolute error rates of active learning SVMs using different query strategies, diversity criteria, initial and batch sizes. The algorithm used is OVA-SVM with  $2 \times 2$ majority-pooling sampling. For ABD, the trade-off parameter  $\lambda = 0.5$. } 
 \begin{threeparttable}
 \begin{tabular}{ |c| c|c|c|c| c| }
 \hline
@@ -664,7 +664,7 @@ As mentioned in Subsection \ref{subsec:chap2:active_learning}, there are differe
 \end{tabular}
  \begin{tablenotes}
       \small
-      \item MS stands for margin sampling. MCLU stands for  multi-class level uncertainty. ABD stands for angle-based diversity.
+      \item MS stands for margin sampling. MCLU stands for multi-class level uncertainty. ABD stands for angle-based diversity.
     \end{tablenotes}    
   \end{threeparttable} 
 \label{tab:AL_different_conditions}   
@@ -674,15 +674,15 @@ As mentioned in Subsection \ref{subsec:chap2:active_learning}, there are differe
 \begin{figure}[htbp]
     \centering
         \includegraphics[width=\textwidth]{images/ActiveLearningCurveMS}
-    \caption{Learning curves for different batch sizes and different initial sizes using MS selection strategies. The x-axis is the size of training data sets. The y-axis is the absolute error rate. The absolute error rate was averaged over 400 phantom maps. The used algorithm is OVA-SVM with random sampling. The stop criteria is when the number of sampling times reaches 100. }
+    \caption{Learning curves for different batch sizes and different initial sizes using MS selection strategies. The x-axis is the size of training data sets. The y-axis is the absolute error rate. The absolute error rate was averaged over 400 phantom maps. The used algorithm is OVA-SVM with random sampling. The stop criterion is when the number of sampling times reaches 100. }
     \label{fig:active_learning_curves}
 \end{figure} 
 
-For MS query strategies, smaller batch sizes in general produce smaller final error rates (Fig. \ref{fig:active_learning_curves}). For MCLU query strategies, the influence of batch sizes on final error rate are less dominant. In our specific classification application, adding ABD diverse criteria does not necessarily decrease the error rate (Table \ref{tab:AL_different_conditions}).
+For MS query strategies, smaller batch sizes generally produce smaller final error rates (Fig. \ref{fig:active_learning_curves}). For MCLU query strategies, the influence of batch sizes on final error rate are less dominant. In our specific classification application, adding ABD diverse criteria does not necessarily decrease the error rate (Table \ref{tab:AL_different_conditions}).
 
 \subsubsection{Coarse array detection accuracy}
 The grand average error rates and phantom sensation coverage ratios when using coarse arrays for phantom map detection are shown in Table \ref{Table:CoarseArrayAccuracy}.
-Fuzzy SVMs were also evaluated in coarse array detection scenarios. However, the error rates were not significantly decrease when fuzzy memebership functions were used, thus the corresponding results are not reported here.
+Fuzzy SVMs were also evaluated in coarse array detection scenarios. However, the error rates were not significantly decreased when fuzzy memebership functions were used, thus the corresponding results are not reported here.
 Fig. \ref{fig:CoarseArrayExample} shows examples of generated phantom maps, their corresponding predicted phantom maps, the confusion matrices, and six metrics.
            
 \begin{table}[th!]
@@ -728,17 +728,17 @@ BT                       &51.8 & 4.6    & 23.6    & 13.6  &38.2 & 1.23\\
         \includegraphics[width=\textwidth]{images/CoarseArrayExample_2.png}
         \caption{}
     \end{subfigure}
-    \caption{Examples of using coarse stimulation arrays to detect phantom map distributions. The used array types and algorithms are (a) OVO-SVM,  $3\times 5$ multi-modal coarse array (corresponding to $15 \times 9$ majority pooling), and (b) BT-SVM, $4 \times 6$ mechanotactile coarse array (corresponding to $7 \times 7$ majority pooling).  }
+    \caption{Examples of using coarse stimulation arrays to detect phantom map distributions. The array types used and algorithms are (a) OVO-SVM,  $3\times 5$ multi-modal coarse array (corresponding to $15 \times 9$ majority pooling), and (b) BT-SVM, $4 \times 6$ mechanotactile coarse array (corresponding to $7 \times 7$ majority pooling).  }
     \label{fig:CoarseArrayExample}
 \end{figure} 
 
-The detection accuracy decreases dramatically when coarse stimulation arrays are used (Table \ref{tab:grand_average_accuracy} VS. Table \ref{Table:CoarseArrayAccuracy}). For coarse arrays, OVO architecture still proves to produce the smallest error rate. However, applying fuzzy SVM does not decrease the error rates. One possible explanation is that the pooling size is too big and the sensing density is too small, thus the high pooling induced error is so large that the current fuzzy membership cannot cancel the error rate.
+The detection accuracy decreases dramatically when coarse stimulation arrays are used (Table \ref{tab:grand_average_accuracy} VS. Table \ref{Table:CoarseArrayAccuracy}). For coarse arrays, OVO architecture was still shown to produce the smallest error rate. However, applying fuzzy SVM does not decrease the error rates. One possible explanation is that the pooling size is too big and the sensing density is too small, thus the high pooling induced error is so large that the current fuzzy membership cannot cancel the error rate.
 
 From the simulation results of coarse array detection, we could conclude that a dense array is needed for accurate phantom map detection. However, to the best of our knowledge, no wearable dense array (100 $\times$ 100) is readily available. Therefore, we propose a two-step approach for sensory feedback designs: first, a non-wearable dense array is used to detect the accurate phantom map shapes. Then, according to the predicted phantom map distribution, a wearable array consisting of 20 to 30 actuators can be integrated into the socket.
                                  
                                                                                                    
 \subsubsection{Socket shifting effects}
-For the dense array scenario, the stimulation devices are used both for phantom map detection as well as for providing sensory feedback. The stimulation devices are embedded in the socket. The socket is taken on and off daily, thus resulting in slight shifts of the stimulation device arrangement. One possible shifting scenario could be the lateral shift shown in Fig. \ref{fig:ExShifting}. This scenario has been simulated with different levels of shifting and the error rates are calculated and shown in Fig. \ref{fig:ShiftingError} and Fig. \ref{fig:ShiftingErrorBoxPlot}.
+For the dense array scenario, the stimulation devices are used both for phantom map detection and for providing sensory feedback. The stimulation devices are embedded in the socket. The socket is taken on and off daily, thus resulting in slight shifts of the stimulation device arrangement. One possible shifting scenario could be the lateral shift shown in Fig. \ref{fig:ExShifting}. This scenario has been simulated with different levels of shifting and the error rates are calculated as shown in Fig. \ref{fig:ShiftingError} and Fig. \ref{fig:ShiftingErrorBoxPlot}.
 
 \begin{figure}[htb!]
     \centering
@@ -758,12 +758,12 @@ For the dense array scenario, the stimulation devices are used both for phantom 
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=0.8\textwidth] {images/OVOShiftingErrorBoxplot.png} 
-    \caption{Error rates ($E_A$: red, $E_F$: green, $E_R$: blue, and $E_I$: Magenta, $E_P$: black) as functions of different degrees of shifting (no shift, \SI{2}{\%} shift, and \SI{5}{ \%} shift).  The rectangle spans the first and the third quartile of the error rate. The line inside each rectangle shows the median value. The two whiskers above and below each rectangle show the minimum and the maximum. The phantom map models used are 100 complete phantom maps with five fingers (Fig. \ref{Fig:PSDDistribution}(a)). The algorithm used was OVO-SVM with $2 \times 2$ majority pooling. }    
+    \caption{Error rates ($E_A$: red, $E_F$: green, $E_R$: blue, and $E_I$: Magenta, $E_P$: black) as functions of different degrees of shifting (no shift, \SI{2}{\%} shift, and \SI{5}{ \%} shift).  The rectangle spans the first and third quartile of the error rate. The line inside each rectangle shows the median value. The two whiskers above and below each rectangle show the minimum and the maximum. The phantom map models used are 100 complete phantom maps with five fingers (Fig. \ref{Fig:PSDDistribution}(a)). The algorithm used was OVO-SVM with $2 \times 2$ majority pooling. }    
     \label{fig:ShiftingErrorBoxPlot}
 \end{figure}
 
 As can be seen from Fig. \ref{fig:ShiftingError}, all the error rates increase as the shifting degree increases (Fig. \ref{fig:ShiftingErrorBoxPlot}). 
-Despite the dramatic increase of the absolute error rate $E_A$, the functional error rate $E_F$ does not increase substantially in absolute terms (from \SI{0.12}{\%} to \SI{0.97}{\%}). The increased $E_F$ is indeed still small (less than \SI{1}{\%}), which demonstrate that the function of the stimulation devices, reflected by the $E_F$ value, will be not largely affected by a slight socket misalignment.
+Despite the dramatic increase of the absolute error rate $E_A$, the functional error rate $E_F$ does not increase substantially in absolute terms (from \SI{0.12}{\%} to \SI{0.97}{\%}). Indeed, the increased $E_F$ is still small (less than \SI{1}{\%}), which demonstrates that the function of the stimulation devices, reflected by the $E_F$ value, will be not largely affected by a slight socket misalignment.
 
 
 \subsection{Timing}
@@ -820,7 +820,7 @@ MP $7 \times 7$   &     196         &   43.5             &  153     &  9.79\\
 \end{table}
 
 The training and classification time increase substantially with the pooling size, but still stay within an acceptable range. 
-Given the same number of training data sets, the training and classification time were influenced by decomposition architectures (shown in Fig. \ref{Fig:OVASVM_architecture} to Fig. \ref{Fig:BT_architecture}).
+Given the same number of training data sets, the training and classification times were influenced by decomposition architectures (shown in Fig. \ref{Fig:OVASVM_architecture} to Fig. \ref{Fig:BT_architecture}).
 OVO and DAG share the same training process. Under the same conditions, the training times of OVO and DAG are therefore equal.
 As mentioned in Subsection \ref{subsubsec:OVO}, given the same number of training data sets, OVO and DAG-SVM do not require significantly more training time than the other two methods when using random and systematic sampling, and sometimes even less training time when using majority pooling sampling.
 The classification processes of OVO and DAG-SVM are different (Fig. \ref{Fig:OVOSVM_architecture} and Fig. \ref{Fig:DAGSVM_architecture}). DAG-SVM requires much less classification time than OVO-SVM at the price of a slightly higher absolute error rate ($E_A$)). 
@@ -830,16 +830,16 @@ The classification processes of OVO and DAG-SVM are different (Fig. \ref{Fig:OVO
 \section{Conclusion}
 \label{chap2:sec:summary}
 This chapter proposed automatic phantom map detection algorithms using different decomposition SVMs. Fuzzy SVMs and active learning SVMs are also evaluated. 
-In the absence of wearable dense stimulation arrays, the accuracy and timing aspects were tested on flexible and realistic phantom map models and five reported phantom map images. The results were compared and discussed. Because the classification results of five reported phantom map images are similar to that of generated phantom map models, the discussion generalize to both generated and reported phantom map images.
+In the absence of wearable dense stimulation arrays, the accuracy and timing aspects were tested on flexible and realistic phantom map models and five reported phantom map images. The results were compared and discussed. Because the classification results of five reported phantom map images are similar to that of generated phantom map models, the discussion incorporated both generated and reported phantom map images.
 
-OVO-SVMs in general feature high classification accuracy (absolute error rate ranging between \SI{8.8}{\%} to \SI{25}{\%}) and near real time training speed (less than \SI{1}{s} training time). 
+OVO-SVMs generally feature high classification accuracy (absolute error rate ranging between \SI{8.8}{\%} to \SI{25}{\%}) and near real time training speed (less than \SI{1}{s} training time). 
 Moreover, fuzzy-SVMs proved effective in decreasing the influence of noisy data and increasing detection accuracy, as well as reducing unclassified regions for OVA-SVMs. Active SVMs interactively select samples, thus increasing the detection accuracy when the initial size and batch size are selected properly. 
 
 The three sampling methods: random sampling, systematic sampling, and majority-pooling sampling were designed so as to be also applicable for future clinical tests.
-Among the three, majority-pooling sampling with a proper pooling size proved to be the most efficient, at the cost of an increase in training time, which does however stay within an acceptable range.
+Among the three, majority-pooling sampling with a proper pooling size proved to be the most efficient, at the cost of an increase in training time which does, however, stay within an acceptable range.
 
-The potential performance using coarse stimulation arrays, designed primarily to provide sensory feedback, was also evaluated and found to be much lower than that of a dense array. Thus, they are unsuitable for refined phantom map shape detection. We therefore propose a two-step approach, using first a non-wearable dense array to detect an accurate phantom map shape, then to apply a wearable coarse stimulation array customized according to the detection results.
+The potential performance using coarse stimulation arrays, designed primarily to provide sensory feedback, was also evaluated and found to be much lower than that of a dense array. They are thus unsuitable for refined phantom map shape detection. We therefore propose a two-step approach, firstly using a non-wearable dense array to detect an accurate phantom map shape, then applying a wearable coarse stimulation array, customized according to the detection results.
 
 
-To the best of our knowledge, it is the first attempt for systematic phantom map shape detection. The proposed method can help optimize sensory feedback array arrangements as well as track the changes of the phantom maps.
+To the best of our knowledge, it is the first attempt at systematic phantom map shape detection. The proposed method can help optimize sensory feedback array arrangements, as well as tracking the changes of the phantom maps.
 
