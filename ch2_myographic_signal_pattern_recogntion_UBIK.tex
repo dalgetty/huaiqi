@@ -1,0 +1,260 @@
+\chapter{Myographic Signal Pattern Recognition for Prosthesis Control}
+\label{chap:myographic_signal_pattern_recognition}
+%The previous chapter has given a short introduction of the issue related to upper limb amputees, state-of-the-art prostheses, and sensory feedback for upper limb prostheses. 
+%
+%
+%
+%
+%\section{Pattern-recognition based myoelectric prosthesis control: state-of-the-art}
+%\label{sec:pattern_recognition_myoelectric_prosthesis_control_state_of_the_art}
+%
+%Prosthetic control should not be mentally demanding but user friendly, independent in multifunctional control, with simultaneous coordinated control of multiple functions, direct access and instaneous reponse, with no sacrifice of human functional ability or natural appearance \cite{childress1992upper}
+%
+%
+%Electromyography (EMG) signals collected from the amputees' residual muscles have long been proposed to be used for prosthesis control \cite{saridis1982emg,hudgins_1993_new}. EMG signals measure the muscle-generated electrical currents during contraction \cite{reaz2006techniques}. Surface EMG (sEMG) has the benefits of being non-invasive, having the potential of real-time processing and easy operation, and enabling multi-point measurements. 
+%Although myoelectric prostheses have made significant progress during the last decade, control dexterity is still limited by EMG signal processing. 
+%
+%Most of current commercial prostheses have only two EMG sensors, and many can only control the opening and closing of the robotic hand. For some multi-grasping prostheses, control is achieved by finite-state-machine (FSMs). In order to achieve the designed of the correct hand position or gesture, the user need to switch between several steps, which decreases the speed and increases the mental workload.
+%
+%Therefore, one of the critical goals, to increase the functionality of myoelectric prostheses, is to advance the EMG signal processing and incorporate more control patterns.  
+%
+%
+%\begin{figure}[hbt]
+%    \centering
+%    \includegraphics[width=0.9\textwidth]{images/Pattern_Recognition_EMG_Classification.pdf}
+%    \caption{The deep belief network architecture used in current study. It consists of two stacked autoencoder and a softmax classifier at the output.}
+%    \label{fig:dnn}
+%\end{figure}
+%
+%
+%
+%% State of the art in pattern recognition control
+%Many methods have been proposed for EMG signal classification, such as: artificial neural networks (ANN) \cite{ferguson2002grasp,ortiz-catalan2014}, support vector machines (SVM) \cite{lucas2008multi, bitzer2006learning}, linear discriminant analysis \cite{young2013classification,alkan2012identification}, and k-nearest neighbour \cite{cipriani2011, antfolk2010}, to name a few. Among these algorithms, SVM is based on the principle of structure minimization. It has a relatively fast convergence rate and good generalization ability \cite{chen2013upper}. 
+%However, many classifiers are intrinsically binary. 
+%Several techniques have been proposed to extend binary classifiers to multi-class classifiers. However, comparisons of these extension techniques for EMG classification have never been conducted.
+%This paper focuses on the techniques of extending binary classifiers to multi-class classifiers. 
+%We have also investigated the potential of applying the decomposition techniques in classifiers that are already used for multi-class pattern recognition.
+%
+%
+%
+%A non-exhaustive list of the control strategies, focusing on methods that are currently employed in clinical prostheses or commonly explored in research hands.
+%
+%Pattern recognition is one way to increase the amount of information gleaned from muscles and to alleviate the need for isolated EMG signals.
+%Pattern-recognition based control strategy has the potential to make control easier and more natural for patients.
+%
+%A typical pattern recognition system consists of signal detection, feature extraction, classification, and calculation of movement speed
+%
+%
+%
+%\subsection{Pattern recognition based prosthesis control}
+%
+%\subsubsection{Time-domain features}
+%One of the important procedures of EMG classification is feature extraction. Time domain features are used in this study because no additional signal transformations are needed.
+%%features are favorable for real-time operation (e.g. prosthetic control) because of their simplicity and short calculation time. 
+%Commonly used time domain features include:  mean absolute values (MAV), zero crossings (ZC), slope sign change (SSC), waveform length (WL), and their combinations \cite{zardoshti1995emg, huang2005gaussian}. For all the time-domain feature definitions (from \eqref{eq:MAV} to \eqref{eq:SSC}) , $N$ is the length of the signal and $x_n$ is the segmented signal in the time window. 
+%
+%The mean absolute value (MAV) is calculated by taking the average of the absolute value of the sEMG signal and is defined as:
+%\begin{equation}
+%\label{eq:MAV}
+%\text{MAV} = \frac{1}{N} \sum_{n=1}^{N-1} |x_n|,
+%\end{equation}
+%%where $N$ is the length of the signal and $x_n$ is the segmented signal in the time window. 
+%
+%Zero crossing (ZC) is the number of occurences the amplitude value of sEMG signal crosses the zero y-axis and is defined as:
+%\begin{gather}
+%\label{eq:ZC}
+%\text{ZC} = \sum_{n=1}^{N-1} \text{sgn}(x_n \times x_{n+1}) \cap |x_n - x_{n+1}| \geq \text{threshold}, \\
+%\text{where} \; \text{sgn}(x) = \left\{
+%                \begin{array}{ll}
+%                  1 \; \text{if} \; x \geq \text{threshold}, \\
+%                  0 \; \text{otherwise}.\\
+%                \end{array}
+%              \right.
+%\end{gather}
+%%where $N$ is the length of the signal and $x_n$ is the segemented signal in the time window.
+%
+%
+%Waveform length (WL) is the cumulative length of the waveform over the time segment. WL is related to the waveform amplitude, frequency and time. It is defined by:
+%\begin{gather}
+%\label{eq:WL}
+%\text{WL} = \sum_{n=1}^{N-1} |x_{n+1} -x_n|. 
+%\end{gather}
+%
+%Slope sign change (SSC) is the number of changes between positive and negative slope among three consecutive segments. It is defined as:
+%\begin{gather}
+%\label{eq:SSC}
+%\text{SSC} = \sum_{n=2}^{N-1} |  (x_n - x_{n-1}) \times (x_n - x_{n+1}) |. 
+%\end{gather}
+%
+%Auto-regressive (AR) coefficients $\alpha_i$ are calculated when considering the current sample of the EMG signal $x_n$  as a linear combination of its previous samples $x_{n-i}$ adding a white noise error $w_n$. AR coefficients $a_i$ are defined by
+%\begin{gather}
+%\label{eq:AR}
+%x_n = \sum_{i=1}^{m} a_ix_{n-i} + w_n,
+%\end{gather}
+%where $m$ is the order of AR coefficients. A commonly used order is  4 or 6 \cite{graupe1975functional}.
+%
+%
+%In this study, features were computed using a time window of \SI{250}{ms} with \SI{25}{ms} overlap. Furthermore, a majority voting filter using ten values were applied to the outputs of the classifiers. In the preliminary study, several values (5, 10, 15, 20, 40) were used to test the optimum value for the majority voting filter. The value ten proves to be the most efficient.
+%
+%
+%
+%%Waveform length (WL): the cumulative length of the waveform over the time segment.
+%%\begin{equation}
+%%WL = \sum^N_{k=1} |\delta x_k|
+%%\end{equation} Frequency ratio: proposed in order to distinguish between the contraction and relaxation of the muscle in the frequency domain. By applying the FFT to the EMG in time domain, the frequency ratio FR of the $-j^{th}$ channel is 
+%%
+%%\begin{equation}
+%%FR_j = \frac{|F(\dot)|_{j low frequency}}{|F(\dot)|_{j high frequency}}
+%%\end{equation}
+%
+%\section{Decomposition methods to contruct multiclass classifiers}
+%\label{sec:MultiClassDecomposition}
+%
+%There are two approaches for extending a binary classifier into multi-class classifiers. 
+%The first approach, proposed by Crammer and Singer \cite{crammer_algorithmic_2002}, is a direct method. This method treats the multiclass classification problem as a big `constrained optimization problem with a quadratic objective function' \cite{crammer_algorithmic_2002}. 
+%The other approach is to decompose the multi-class classification problem into several binary classification problems.  The first approach is slow and it involves a big optimization problem. The decomposition approaches have generally performaned well, and they are easier to implement \cite{sabzekar_2009_improved}.
+%Four main decomposition methods were proposed: the one-VS-all (OVA), the one-VS-one (OVO), the directed acyclic graph (DAG), and the binary tree (BT) method.
+%
+%
+%\subsubsection{OVA}
+%The principle of OVA is to train each class against all the rest of the classes. When training the $i^{th}$ class, all the training samples belonging to $i^{th}$ class are assigned positive labels, while the others are assigned negative labels. After training all the binary classifiers, the final predicted class is the one with the highest output margin. 
+%
+%\subsubsection{OVO}
+%For OVO, all the classes are trained against each other \cite{weston_1999_support}. For a $k$-class classification problem, each binary classifier determines a preferred class. After training all the $k(k-1)/2$ classifiers, the predicted class is the one that has the most votes.
+%
+%\subsubsection{DAG}
+%The training of a DAG multi-class classifier is the same as an OVO multi-class classifier. In the classification phase, the $k(k-1)/2$ classifiers are arranged according to a directed acyclic graph (DAG). A test sample starts from the root node and goes to either the left or the right child node until a leaf node is reached and a class label is assigned. 
+%
+%
+%\subsubsection{BT}
+%\label{subsubsec:BT}
+%The basic idea of a BT-SVM is to partition the multi-class problems hierarchically. Each partition results in a binary classification problem between two meta-classes. For a $k$-class classification problem, a BT multi-class classifier needs to train $k-1$ binary classifiers. During the classification phase, an evenly-distributed BT multi-class classifier needs only $log_2k$ binary classifiers to decide the class label of a testing sample. One key element in building a BT multi-class classifier is the partition strategy. 
+%
+%Previous works have demonstrated various partition strategies such as: hierarchy clustering \cite{lei2005half}, decision and posterior \cite{fei2006binary}, progressive $k$-means clustering \cite{madzarov2009multi},  fewest average number of support vectors and the decision function \cite{chen2009adaptive}, multi-space-mapping \cite{liu2008multi}, and self-organizing maps \cite{cheong2004support}. 
+% 
+%In the current study, the $k$-means clustering strategy is used. Given a set of training data with $k$ classes, firstly, the training features are mapped to the kernel space, if kernel functions are used. Then the gravity centers of each class is calculated. The $k$ classes are divided into two meta-classes $R_1$ and $R_2$ according to their gravity centers.  This process continues until all meta-classes contain only one class.
+%
+%
+%
+%
+%
+%
+%
+%
+%\subsection{Linear discriminant analysis}
+%LDA maximizes the ratio of the between-class variance to the within-class variance (the Fisher criterion) in any particular data set, thereby guaranteeing maximal separability \cite{balakrishnama1998linear, bishop2006pattern}. 
+%For a binary classification problem, the Fisher criterion is defined as:
+%\begin{equation}
+%\label{eq:FisherCriterion}
+%J({\bf w}) = \frac{({\bf m}_1 - {{\bf m}_2})^2 }{s_1^2 +s_1^2 },
+%\end{equation}
+%where ${\bf m}_1 = \frac{1}{N_1} \sum_{n \in C_1} {\bf x}_n$ and ${\bf m}_2 = \frac{1}{N_2} \sum_{n \in C_2}{\bf x}_n$. ${\bf x}_n$ is the $n^ {th}$ feature vector in $C_1$ (class 1) and $C_2$ (class 2) with $N_1$ samples in class $C_1$ and $N_2$ samples in class $C_2$, and $s_1^2$ and $s_1^2 $ are the within-class covariances.\\\\\\
+%
+%The Fisher criterion can be extended to multi-classes. In a $k$-class classification problem ($k>2$), the Fisher criterion is defined as
+%\begin{equation}
+%\label{eq:FisherCriterionMultiClass}
+%J({\bf w}) =  Tr \{ ({\bf W} {\bf S}_W {\bf W}^T )^{-1} ({\bf W} {\bf S}_B {\bf W}^T ) \}  ,       %   \frac{(\vec{m_1} - \vec{m_2})^2 }{s_1^2 +s_1^2 },
+%\end{equation}
+%where ${\bf W}$ is the projection matrix and ${\bf S}_W$ and ${\bf S}_B $ are the covariance matrices \cite{bishop2006pattern}. 
+%Although an LDA can be used as a multi-class classifier, in this study, an LDA is also considered as a binary classifier and used to construct different types of multi-class classifiers using the decomposition techniques described in \ref{subsec:MultiClassDecomposition}. 
+%In total, six types of LDA are tested: multi-class LDA, OVA-LDA, OVO-LDA, DAG-LDA, BT-LDA-ED (evenly divided), and BT-LDA-KM (divided based on $k$-means clustering).
+%
+%
+%
+%
+%\subsection{support vector machines}
+%
+%
+%
+%
+%\subsubsection{fuzzy support vector machines}
+%
+%
+%
+%
+%
+%
+%
+%\section{Deep belief neural network}
+%The DBN consisted of a pre-training phase and a fine tuning phase. In the pre-training phase, a deep belief network generates a multilayer connected model with an autoencoder. The autoencoders are trained using an unsupervised learning method. A joint probability between the visible layer and the hidden layer is then defined using an energy function in RBMs. Each layer is trained in a greedy manner.
+%After pre-training, the fine tuning is processed using back propogation. 
+%
+%\begin{figure}[hbt]
+%    \centering
+%    \includegraphics[width=0.9\textwidth]{images/DNN}
+%    \caption{The deep belief network architecture used in the current study. It consists of two stacked autoencoder and a softmax classifier at the output.}
+%    \label{fig:dnn}
+%\end{figure}
+%
+%
+%\section{Support vector machine}
+%A support vector machine (SVM) is a non-probabilistic binary classifier. It is based on the maximum margin principle \cite{burges_1998_tutorial}. The basic idea of SVM is to minimize the classification error rate while maximizing the geometric margin between two classes \cite{bartlett_1999_generalization}. 
+%
+%
+%
+%
+%
+%\section{Classification results}
+%The EMG pattern recogntion classification results are evaluated in classification accuracy and real-time performance
+%\subsection{Classification accuracy definiation}
+%
+%
+%
+%
+%\subsection{Real-time accuracy definition}
+%
+%
+%
+%
+%\subsection{Datasets description}
+%
+%1. Force level
+%2. Individual finger movements
+%3. Hand gestures
+%4. Gross movements (including the wrists)
+%
+%
+%\paragraph{Accuracy}
+%
+%\paragraph{Real-time performance}
+%
+%
+%\subsection{Hand gesture datasets}
+%
+%
+%
+%
+%
+%
+%
+%
+%\section{Discussion}
+%\subsection{Classification accuracy}
+%
+%
+%
+%\subsection{Real-time performance}
+%
+%
+%
+%\subsection{Majority voting tradeoff}
+%
+%
+%\subsection{Interpersonal and inter-dataset variations}
+%
+%
+%
+%
+%
+%
+%
+
+
+
+
+
+
+
+
+
+
