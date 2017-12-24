@@ -1,0 +1,594 @@
+\chapter{Non-invasive Sensory Feedback}
+\label{chap_non_invasive_sensory_feedback}
+
+%%%% Introduction of sensory feedback devices
+%Tactile display devices can be broadly classified into four categories: mechanotactile devices, vibrotactile devices, electrotactile devices, and thermal devices \cite{chouvardas2008tactile}. 
+%Previous research has covered the design and integration of mechanotactile, vibrotactile, and electrotactile haptic interfaces. 
+%
+%For mechanotactile devices, one of the most successful applications in the market is the piezoelectric Braille display \cite{ramstein1996combining, cho2006development}. This kind of devices is based on pin display driven by piezoelectricity. 
+%
+%Electrotactile displays have been used in sensory substitution \cite{ho2005using}, gaming \cite{tang2003design}, and virtual reality \cite{kajimoto2004smarttouch}. Vibration based devices have been tested on navigational assistance systems for car drivers \cite{ho2005using}, \cite{van2004vibrotactile} and piloting \cite{nordwall2000vest}.
+%
+%
+%Haptic interfaces offer an independent sensory channel that the brain can process to enhance a user's experience in a multi-modal environment. Providing haptic feedback could potentially speed up reaction time, enhance realistic feeling, and introduce more natural interaction with the system \cite{hale2004deriving}.
+%
+%A comparison of the three types of non-invasive haptic sensory feedback is shown in Table \ref{tab:compare_tactile_sensory_feedback}.
+%
+%\begin{table}[h!]
+%\centering
+%\caption{The comparison of three types of non-invasive tactile sensory feedback}
+%\begin{tabular}{| >{\centering\arraybackslash}m{2cm} | >{\centering\arraybackslash}m{1.8cm} | >{\centering\arraybackslash}m{2cm} | >{\centering\arraybackslash}m{2cm} | >{\centering\arraybackslash}m{2cm} | >{\centering\arraybackslash}m{3cm} | >{\centering\arraybackslash}m{1.8cm} |}
+%  \hline
+% Method   &  Speed  & Power & Size & User acceptance & Coding parameters\\ 
+%  \hline
+% Electro    &   Fast    & Small & Small & More invasive & Voltage, current, frequency\\  
+%\hline
+%Mechano   &  Slow   & High & Bulky   & High & Force, frequency\\
+%\hline
+%Vibro        & Medium & Small & Small & High & Amplitude, frequency \\
+%\hline
+%\end{tabular}
+%\label{tab:compare_tactile_sensory_feedback}   
+%\end{table}
+%
+%This chapter is organized as follows: in Section \ref{chap2:sec_mechanotactile_design}, the design and testing of mechanotactile stimulation devices are shown. In Section \ref{chap2:sec:vibrotactile_sensory_feedback_display}, the application of vibrotactile display, the design, and testing are presented and discussed. In the next section (Section \ref{chap2:sec:multimodal_sensory_feedback_display}), the design and testing of a hybrid stimulation device are discussed.
+%
+%
+%\section{Mechanotactile sensory feedback devices}
+%\label{chap2:sec_mechanotactile_design}
+%\subsection{Servo motor design}
+%%Solenoids are used widely in many industrial applications \cite{}. the approximate range of the characteristics tab:solenoid_approximate_characteristics}.
+%
+%
+%
+%\subsection{Solenoid}
+%Solenoid actuators are usually cylindrical coils with a movable disposed high-permeability cylindrical core, that is partially inserted at rest, and is
+%drawn into the solenoid when current flows
+%Solenoid actuators provide numerous advantages such as having high power density in a limited stroke, low cost, reduced complexity, and fast switching.
+%
+%A solenoid is a long wire, wound with a helical pattern, usually surrounded by a steel frame, having a steel core inside the winding.
+%When carrying a current, the solenoid becomes an electro-mechanical device, in which electrical energy is converted into mechanical work.
+%
+%
+%\begin{figure}[H]
+%    \centering
+%        \includegraphics[width=0.7\textwidth]{images/Solenoid.png}
+%    \caption{The conceptual design of the multi-modal stimulation actuator. It consists of two servo motors (labeled A in the figure) and one vibrator (labeled B in the figure). It can generate a pushed-down pressure and a horizontal vibration. \textcolor{red}{Replace the picture, adding A and B}}.
+%    \label{fig:hybrid_array}
+%\end{figure}
+%
+%\subsubsection{Solenoid stimulation device design}
+%The approximate characteristics of solenoids are presented in Table \ref{tab:solenoid_approximate_characteristics}.
+%\begin{table}[h!]
+%\centering
+%\caption{The approximate characteristics of solenoids}
+%\label{tab:solenoid_approximate_characteristics}
+%\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+%\hline
+%max strain & max stress  &  max frequency & max power density \\   
+%\hline
+%0.1 - 0.4  & 0.04 - 0.1  & 5 - 80             & 0.001 - 40000      \\
+%\hline
+% efficiency   & resolution           & stroke work coefficient   & cyclic power coefficeint \\
+% \hline
+%  0.5 - 0.8    & 0.00001 - 0.01 &0.5-1.0                           & 0.2-0.5  \\
+%\hline
+%\end{tabular}
+%\end{table}
+%
+%\paragraph{Mathematical model}
+%The induced magnetic force $F_s$ on the plunger is:
+% 
+% \begin{equation}
+% \label{eq:solenoid_magnetic_force}
+% \begin{split}
+% F_s (x_s, i_s) &= \frac{\alpha I_s^2 (t)}{(\beta + \gamma x_s(t))^2}, \\
+% \alpha           &= N^2 \mu_0 \mu_P^2 \mu_C^2 A_e,\\
+% \beta            &= l_P \mu_c + 2\mu_P \mu_C x_0 + l_c \mu_P, \\
+% \gamma       &= 2 \mu_P \mu_C 
+%\end{split}
+% \end{equation}
+% where $x_s$ is the plunger motion, $I_s$ is the electrical current in the coil, $N$ is the number of coil turns, $\mu_0$ is the permeability coefficient of the air, and $\mu_C$ and $\mu_P$ are the permeablity coefficient of the core and the plunger. $A_e$ is the effective cross section area through which the magnetic flux is flowing.  
+% 
+%\paragraph{Device characterization}
+%The designed solenoid is small enough to be put in the shoe insert. The specification of the designed device is shown in Table \ref{tab:specification_solenoid_actuator}.
+%
+%\begin{table}[H]
+%\center
+%\caption{Specification of the designed solenoid actuator}
+%\label{tab:specification_solenoid_actuator}
+%   \begin{tabular}{ |c|c|c|}
+%       \hline
+%       Parameter                       &  Values \\
+%       \hline
+%       Force / torque                 &  \\
+%       \hline
+%       Weight                          &     \\
+%       \hline
+%       Size                               &  47.5 $\times$ 12 $\times$ 27 mm \\
+%       \hline
+%       Power consumption        &  \SI{30}{gram} \\
+%       \hline
+%       Input voltage                 & 3.2 or \SI{4.2}{V} \\
+%       \hline
+%       Max frequency & 240 Hz \\
+%       \hline
+%       Max pressure                 & 4.4 N \\
+%       \hline
+%       Max stroke                     & \SI{6.5}{mm} \\
+%       \hline
+%    \end{tabular}
+%\end{table}
+%
+%
+%\subsubsection{Solenoid stimulation device testing}
+%\paragraph{Subjects}
+%XX healthy subjects participated in the experiment. 
+%
+%\paragraph{Experimental setup}
+%Five solenoid devices were inserted in the shoes. 
+%
+%
+%
+%\paragraph{Experimental procedure}
+%Three experiments were conducted: localization, intensity, and combined identification tasks.
+%
+%To control the variation of the experiment, the testing subjects are divided into three groups, each group is assigned a specific experimental sequence according to a full Latin square design:
+%
+%\begin{table}[H]
+%\center
+%\caption{Latin square design}
+%\label{tab:solenoid_latin_square_design}
+%   \begin{tabular}{ |c|c|c|c|}
+%       \hline
+%       Group number  &  \multicolumn{3}{c|}{Experimental sequence}\\
+%       \hline
+%       1                    & Localization & Intensity & Combined  \\
+%       \hline
+%       2                    & Combined   & Localization & Intensity   \\
+%       \hline
+%       3                    & Intensity     & Combined   & Localization \\
+%       \hline
+%    \end{tabular}
+%\end{table}
+%\paragraph{Experimental hypothesis}
+%
+%
+%
+%\section{Vibrotactile sensory feedback display}
+%\label{chap2:sec:vibrotactile_sensory_feedback_display}
+%Among the three types mentioned, vibrotactile display has the advantages of compact size, relatively-low power consumption, and high user acceptance. 
+%It has the potential to be integrated into a wearable device. 
+%When a vibrotactile stimulation is applied to the skin, as well as pressure, a mechanical wave will propagate on the skin as well as in the tissue \cite{}.
+%
+%The commonly used vibrotactile device types include linear electromagnetic actuators (e.g. voice coil, solenoid, or linear resonant actuator) \cite{}, rotary electromagnetic actuator (e.g. eccentric rotating mass), and non-electromagnetic actuators (e.g. shape memory alloy, electroactive polymer).
+%
+%
+%
+%
+%The most common types of actuators are linear resonance actuators (LRAs) and eccentric rotating mass motors (ERMs). LRAs operate by oscillating a magnetic field to vibrate a magnet connected to the case by a spring and require an AC input. They typically have one resonant frequency at which they operate and are directional. Complex driving circuitry is needed for an LRA ??to its their?? resonance frequency due to enviromental influence and manufacturing variations.
+%
+% ERMs are DC motors that have an offset mass rotating about the central axis. The non-symmetric rotating mass causes displacement of the motor body at high frequencies, in order to produce vibration. The frequency and amplitude of ERMs are coupled, which means that an increase in frequency (directly proportional to voltage) typically causes a linear increase in the amplitude of vibration. 
+%
+%\subsection{Vibrotactile display design}
+%
+%\begin{figure}[H]
+%    \centering
+%        \includegraphics[width=0.7\textwidth]{images/VibrotactileDisplay.png}
+%    \caption{The custom-designed stimulation array consisting of 9 ERMs (left) or 9 LRAs (right) embedded on thin silicone plates. LRA vibrates vertically. ERM rotates around its axis. In oder to avoid the cross-talks between each
+%actuator, there is a ditch surrounding each actuator (shown in the zoom in).}.
+%    \label{fig:hybrid_array}
+%\end{figure}
+%
+%
+%\begin{table}[htb]
+%\caption{The characteristics of LRAs and ERMs \cite{ERM}, \cite{LRA} }
+%\label{Table:LRAandERM}
+%\begin{center}
+%\begin{tabular}{|c|c|c|}
+%\hline
+% & LRA & ERM \\
+%\hline
+%Diameter (mm) & 10 & 12 \\
+%\hline
+%Height (mm)& 3.6 & 3.4 \\
+%\hline
+%Frequency $f$ (Hz)& 175 & $f = 56.1V + 16.71$ \\
+%\hline
+%Amplitude $A$ (g) & $A = 0.83V - 0.04$ & $A=0.6341V + 0.10$ \\
+%\hline
+%\multicolumn{3}{|c|}{V represents the driving voltage in volt} \\
+%\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+%
+%\subsection{Vibrotactile testing}
+%Using these two actuators, the minimal detectable signal, just-noticeable difference, and two point discrimination are investigated.
+%\subsubsection{Subjects}
+%Fifteen subjects (14 males and 1 female, average age = 24.9, ranging from 22 to 31) participated in the experiments. None of the participants had previous experience with vibrotactile stimulation, none had any known neurological deficit. Before the study, each participant signed a written consent.
+%
+%\subsubsection{Experimental setup}
+%During the experiments, participants sat comfortably and rested their forearm on a small cushion placed on the table.
+%They were wearing headphones providing white noise to eliminate audio cues from the motors. The custom designed stimulation array was fixed on the dorsal side of the subject's upper arm. The center of the stimulation array was placed on the middle line of the arm, in the middle between the shoulder and elbow. The whole setup is shown in Fig. \ref{}.
+%
+%
+%
+%\begin{figure}[H]
+%    \centering
+%        \includegraphics[width=0.7\textwidth]{images/VibrotactileExperimentSetUp}
+%    \caption{Experimental setup. The participant rested the arm on a cushion placed on the table and followed the instruction shown in the computer screen. During all the experiments, the participant wore headphones with white noise. The tactile display was fixed by a blood pressure cuff.}.
+%    \label{fig:hybrid_array}
+%\end{figure}
+%
+%
+%\subsubsection{Experimental procedure}
+%All the participants did two sessions on separate days during a week for two weeks. There was no training before each experiment. One session consists of the following three experiments:
+%\begin{itemize}
+%\item Minimum detectable signal using LRAs and ERMs
+%During this experiment, only a certain actuator in the middle of the array was activated. Participants were provided with 50 stimulations of different intensities. For LRA, the vibrating frequency was fixed at resonant frequency: 175Hz, with amplitude ranges from 0 g to 1:2 g. For ERM, the vibrating amplitude and frequency ranged from 0 g to 2.0 g and from 70 Hz to 185 Hz, respectively. Each stimulation lasted for 1 s. The order of stimulation was randomized. After each stimulation, the participants were asked to answer whether they could feel the stimulation or not.
+%\item Just-noticeable difference using LRAs and ERMs
+%During this experiment, only a certain actuator in the middle of the array was activated. The whole range of amplitude (or amplitude and frequency for ERMs) was linearly divided into 4 starting levels (shown in table \ref{tab:vibrotactile_JND_starting_stages}). At each stimulation, participants were first given a signal from one of the 4 starting levels for \SI{1}{s}, and then another vibration within $\pm \SI{0.2}{g}$ (for LRAs) or within $\pm \SI{0.31}{g}$ and $\pm \SI{30}{Hz}$ (for ERMs) of the starting level for another \SI{1}{s}. After each pair of vibrations, the participant would answer whether he or she felt the differences in intensities. There were 40 vibration sets of each type of device and the order is randomized. \\ \\
+%Experiment 3: Two-point discrimination using LRAs and ERMs
+%\item Two-point discrimination
+%Thirteen different distances were tested on each participant: \SI{0.0}{mm}, \SI{20.0}{mm}, \SI{22.0}{mm}, \SI{24.4}{mm}, \SI{28.0}{mm}, \SI{29.7}{mm}, \SI{31.9}{mm}, \SI{34.0}{mm}, \SI{36.0}{mm}, \SI{37.4}{mm}, \SI{39.5}{mm}, \SI{41.6}{mm}, and \SI{44.9}{mm} (shown in Fig. \ref{Fig:9Pixel} and table \ref{Table:DifferentDistances}).  One or two actuators were vibrating at the same time for \SI{1}{s} and the participants were required to answer whether he or she felt two spatial-separated vibrations. The participants were aware that there could be one or two active actuators for one test.  The order of vibration is randomized. For LRAs, The vibration frequency was fixed at resonant frequency: \SI{175}{Hz} and the vibration amplitude was \SI{0.78}{g}. For ERM, the vibration frequency was at \SI{100}{Hz} and the vibration amplitude was \SI{1.04}{g}. 
+%\end{itemize}
+%
+%\subsubsection{Experimental results}
+%
+%
+%
+%
+%
+%\section{Multi-modal sensory feedback display}
+%\label{chap2:sec:multimodal_sensory_feedback_display}
+%%%% The rationales of using a multimodality sensory feedback system
+%Applying simultaneous hybrid stimulation can be advantageous. Firstly, from a neurological point of view, mechanotactile and vibrotactile elicit different mechanoreceptor channels (Table. \ref{fig:mechanoreceptors}). Secondly, from a  psychophysical point of view, the sensations introduced by the two types of stimulation are different: mechanotactile stimulation produces a focused point sensation, while vibrotactile stimulation produces a smooth vibration feeling. What is more, the hybrid stimulation devices can potentially provide multi-dimensional and multi-modal information in a compact configuration, increasing the perception space.
+%
+%\begin{table}[H]
+%\center
+%\caption{Mechanoreceptor classifications}
+%\label{fig:mechanoreceptors}
+%   \begin{tabular}{ |c|c|c|}
+%       \hline
+%       Receptor type              & Adaptation rate & Activation threshold \\
+%       \hline
+%       Pacinian corpuscle        & Rapid & Low \\
+%       \hline
+%       Ruffini's corpuscle        & Slow & Low \\
+%       \hline
+%       Merkel's disk               &  Slow & Low \\
+%       \hline
+%       Meissner corpuscle       & Rapid & Low \\
+%       \hline
+%    \end{tabular}
+%\end{table}
+%
+%Previous researchers have considered and designed different types of multi-modality system. 
+%Caldwell \textit{et al.} designed a cutaneous tactile feedback glove incorporating pressure feedback exerted from piezoelectric and thermal energy
+%Jimenz \textit{et al.} has constructed a multi-modality system \cite{jimenez2014evaluation}. But the system consists of three discrete systems, each providing a single modality. D’Alonzo et al. has integrated electrotactile and vibrotactile together \cite{d2014hyve}.  The testing results on healthy subjects have shown that combined modality has better or similar performance than single modality. Considering that electrotactile can evoke painful feelings and are hard to locate, we propose to incorporate mechanotactile and vibrotactile into a single device.
+%
+%
+%
+%
+%
+%
+%
+%\subsection{Design and characterization of the hybrid stimulation array}
+%%design requirement
+%The multi-modality actuator was designed for providing sensory feedback for upper-limb amputees or as a wearable perceptual enhancement device. It should be light-weight, small-sized, and low-power. 
+%The basic design concept is to use two servo motors to push down a cylindrical vibrator (Fig. \ref{fig:hybrid_array}). 
+%The vibrotactile stimulation is generated by a cylindrical eccentric rotating mass (ERM) vibrator (Fig. \ref{fig:hybrid_array_devices}(a)) from Precision Microdrives (Precision Microdrives Ltd. UK). The servo motors (Fig. \ref{fig:hybrid_array_devices}(b)) are linear DC servo motors from Spektrum (Spektrum, United States). 
+%
+%\begin{figure}[H]
+%    \centering
+%        \includegraphics[width=0.3\textwidth]{images/Hybrid_concept}
+%    \caption{The conceptual design of the multi-modal stimulation actuator. It consists of two servo motors (labeled A in the figure) and one vibrator (labeled B in the figure). It can generate a pushed-down pressure and a horizontal vibration. \textcolor{red}{Replace the picture, adding A and B}}.
+%    \label{fig:hybrid_array}
+%\end{figure}
+%
+%
+%
+%\begin{figure}
+%    \centering
+%    \begin{subfigure}[b]{0.3\textwidth}
+%        \includegraphics[width=\textwidth]{images/ERM}
+%        \caption{}
+%        \label{fig:ERM}
+%    \end{subfigure}
+%    ~ 
+%    \begin{subfigure}[b]{0.3\textwidth}
+%        \includegraphics[width=\textwidth]{images/ServoMotor}
+%        \caption{}
+%        \label{fig:servo_motor}
+%    \end{subfigure}
+%    \caption{The vibrator and servo motor used in designing the hybrid stimulation devices}
+%     \label{fig:hybrid_array_devices}
+%\end{figure}
+%
+%
+%\begin{table}[H]
+%\center
+%\caption{Specification of the multimodal actuator}
+%\label{tab:specification_multimodal_actuator}
+%   \begin{tabular}{ |c|c|c|}
+%       \hline
+%       Parameter                       &  Values \\
+%       \hline
+%       Modalities                       &  Vibration, pressure \\
+%       \hline
+%       Size                               &  47.5 $\times$ 12 $\times$ 27 mm \\
+%       \hline
+%       Power consumption        &  \SI{30}{gram} \\
+%       \hline
+%       Input voltage                 & 3.2 or \SI{4.2}{V} \\
+%       \hline
+%       Max vibration frequency & 240 Hz \\
+%       \hline
+%       Max pressure                 & 4.4 N \\
+%       \hline
+%       Max stroke                     & \SI{6.5}{mm} \\
+%       \hline
+%    \end{tabular}
+%\end{table}
+%
+%
+%
+%\begin{figure}
+%    \centering
+%    \begin{subfigure}[b]{0.3\textwidth}
+%        \includegraphics[width=\textwidth]{images/Hybrid_array_1}
+%        \caption{}
+%        \label{fig:hybrid_array_1}
+%    \end{subfigure}
+%    ~ 
+%    \begin{subfigure}[b]{0.3\textwidth}
+%        \includegraphics[width=\textwidth]{images/Hybrid_array_2}
+%        \caption{}
+%        \label{fig:hybrid_array_2}
+%    \end{subfigure}
+%    \caption{The flexible multimodal array consisting of 15 multimodal actuators. Each actuator can be controlled independently. The array can easily wrap around human upper arms.}
+%    \label{fig:hybrid_array}
+%\end{figure}
+%
+%
+%
+%
+%
+%
+%\subsection{Hybrid stimulation array testing}
+%\label{chap_3_subsec:hybrid_stimulation_array_testing}
+%
+%\paragraph{Localization}
+%
+%
+%
+%
+%
+%
+%\paragraph{}
+%
+%
+%
+%
+%
+%\subsubsection{Testing subjects}
+%Three amputees and 16 healthy subjects participated in the experiment. 
+%\paragraph{Amputee subjects}
+%Three male amputee subjects participated in the experiment. Two of the amputees (A1 and A2) have a clear phantom map with five phantom fingers. The introduction of the phantom map can be found in Chapter 2.  Before the experiment, the distribution of the phantom maps were defined by the amputee himself, using palpation, and then the stimulation array was arranged according to the distribution of phantom fingers (Fig. \ref{fig:hybrid_placement_phantom_map}). The other amputee (A2) wore an evenly distributed stimulation array on the dorsal side of his lower arm (Fig. \ref{fig:hybrid_placement_without_phantom_map}). Each subject had 5 stimulation devices. Each device was programmed to provide three intensity levels. 
+%
+%
+%
+%
+%\subsubsection{Experimental procedure}
+%
+%All three subjects were first given 5 minutes to learn the stimulation patterns. After the learning phase, six sets of experiments were conducted:
+%\begin{itemize} 
+%\item     Finger localization using mechanotactile stimulation, 
+%\item	Force level identification using mechano-tactile stimulation,
+%\item 	Finger localization and intensity identifiction using mechanotactile stimulation,
+%\item	Finger localization using hybrid stimulation,
+%\item	Intensity identification using hybrid stimulation,
+%\item      Finger localization and intensity identi-fication using hybrid stimulation.
+%\end{itemize}
+%
+%\begin{figure}
+%    \centering
+%    \begin{subfigure}[b]{0.3\textwidth}
+%        \includegraphics[width=\textwidth]{images/hybrid_placement_amputee_phantom_map}
+%        \caption{}
+%        \label{fig:hybrid_placement_phantom_map}
+%    \end{subfigure}
+%    ~ 
+%        \begin{subfigure}[b]{0.3\textwidth}
+%        \includegraphics[width=\textwidth]{images/hybrid_placement_amputee_phantom_map}
+%        \caption{}
+%        \label{fig:hybrid_placement_phantom_map}
+%    \end{subfigure}
+%    ~ 
+%    \begin{subfigure}[b]{0.3\textwidth}
+%        \includegraphics[width=\textwidth]{images/hybrid_placement_amputee_without_phantom_map}
+%        \caption{}
+%        \label{fig:hybrid_placement_without_phantom_map}
+%    \end{subfigure}
+%    \caption{The arrangement of stimulation devices on (a) the phantom map and (b) on the dorsal side of the remaining stump. D1 to D5 represents thumb to little finger, respectively. \textcolor{red}{Redraw this picture and the other two}}
+%    \label{fig:hybrid_array}
+%\end{figure}
+%
+%For the single modality experiments (experiment 1 to 3), only the servo motors are activated. For the hybrid modality experiment (experiments 4 to 6), the subjects first receive a short vibrational signal, followed by a static force. The two modalities were applied by the same device at the same location. After each stimulation session, the subject was required to answer as fast as possible which finger and which intensity (where applicable) was applied. 
+%For localization test (experiments 1 and 4), 25 stimulations were given. Each finger repeated 3 to 8 times.
+%For intensity test (experiments 2 and 5), three levels of intensities were given. When using hybrid stimulation, the intensities of vibrotactile and mechanotactile are coherent. In total, 15 stimulations of different intensities were given. Each intensity level was repeated 3 to 9 times. The order was random. 
+%For localization and intensity identification test (experiments 3 and 6), in total, 75 stimulations were given. There are in total 15 possible location and intensity combinations. Each combination was repeated 2 to 10 times. 
+%
+%
+%
+%
+%\begin{figure}[H]
+%    \centering
+%        \includegraphics[width=0.3\textwidth]{images/HybridSetup_Photo}
+%    \caption{The amputee sat next to a table and rested their arm on the table wearing ski goggles and noise-canceling headphones to eliminate the visual and sound cues. The five stimulation devices were fixed on the remaining stump of the amputee using double-sided tape.}.
+%    \label{fig:hybrid_setup_photo}
+%\end{figure}
+%
+%
+%
+%
+%\subsubsection{Experimental results and discussion}
+%\label{chap3:subsubsec:hybrid_results}
+%The averaged correct answer rates of all subjects are shown in Table \ref{tab:hybrd_amputee_correct_rate}.
+%
+%
+%\begin{table}[H]
+%\center
+%\caption{The averaged correct answer rate}
+%\label{tab:hybrid_and_mechano_amputee_correct_rate}
+%   \begin{tabular}{ |c|c|c|c|c|c|}
+%       \hline
+%       \multicolumn{6}{|c|}{Mechanotactile stimulation correct rate (\%)} \\
+%       \hline
+%        \multirow{2}{*}{Testing subject} &  \multirow{2}{*}{EXP 1}  &  \multirow{2}{*}{EXP 2} &  \multicolumn{3}{c|}{ EXP 3  } \\
+%        \cline{4-6}
+%                                                         &                                       &                                       & Localization & Force level & Total \\
+%       \hline
+%       A1                                              &    96.0                             &      86.7                          &  96.0            &  98.7       & 94.6    \\
+%       \hline
+%       A2                                              &   80.0                              &      93.3                           &  76.7            & 82.4       & 60.8  \\       
+%       \hline
+%       A3                                              &   88.0                              &      86.7                           &   81.9          &  70.8       & 61.1\\        
+%       \hline
+%       \multicolumn{6}{|c|}{Multi-modal stimulation correct rate (\%)} \\
+%       \hline
+%        \multirow{2}{*}{Testing subject} &  \multirow{2}{*}{EXP 4}  &  \multirow{2}{*}{EXP 5} &  \multicolumn{3}{c|}{ EXP 6  } \\
+%        \cline{4-6}
+%                                                         &                                       &                                       & Localization & Force level & Total \\    
+%      \hline
+%       A1                                              & 100                                &  100                                 &   100          &   98.6      & 98.6   \\
+%       \hline
+%       A2                                              & 96.0                               & 73.3                                 & 71.6          &   91.9    & 68.2   \\       
+%       \hline
+%       A3                                              &  84.0                              &  73.3                               &   79.7         &  78.4     &  64.2  \\                                                                                                                               
+%       \hline 
+%    \end{tabular}
+%\end{table}
+%
+%To compare the correct rate of two types of stimulation, a 
+%
+%
+%
+%
+%The confusion matrices of three amputees over the six experiments are shown in Fig. \ref{fig:hybrid_and_mechano_confusion_matrices}.
+%
+%%\begin{figure}
+%%\ffigbox
+%%{%
+%%  \begin{subfloatrow}[3]
+%%  \fcapside[\FBwidth]{\caption{A1:M}\label{fig:sub1}}{\includegraphics[width=3cm]{images/A1_force_mechano.png}}%
+%%  \fcapside[\FBwidth]{}{\includegraphics[width=3cm]{images/A1_localization_mechano.png}}
+%%  \fcapside[\FBwidth]{}{\includegraphics[width=5cm]{images/A1_combined_mechano.png}}
+%%  \end{subfloatrow}\vskip10pt%
+%%  
+%%  \begin{subfloatrow}[3]
+%%  \fcapside[\FBwidth]{\caption{A1:MM}\label{fig:sub1}}{\includegraphics[width=3cm]{images/A1_force_hybrid.png}}%
+%%  \fcapside[\FBwidth]{}{\includegraphics[width=3cm]{images/A1_localization_hybrid.png}}
+%%  \fcapside[\FBwidth]{}{\includegraphics[width=5cm]{images/A1_combined_hybrid.png}}
+%%  \end{subfloatrow}\vskip10pt%
+%%  
+%%  \begin{subfloatrow}[3]
+%%  \fcapside[\FBwidth]{\caption{A2:M}\label{fig:sub1}}{\includegraphics[width=3cm]{images/A2_force_mechano.png}}%
+%%  \fcapside[\FBwidth]{}{\includegraphics[width=3cm]{images/A2_localization_mechano.png}}
+%%  \fcapside[\FBwidth]{}{\includegraphics[width=5cm]{images/A2_combined_mechano.png}}
+%%  \end{subfloatrow}\vskip10pt%
+%%  
+%%  \begin{subfloatrow}[3]
+%%  \fcapside[\FBwidth]{\caption{A2:MM}\label{fig:sub1}}{\includegraphics[width=3cm]{images/A2_force_hybrid.png}}%
+%%  \fcapside[\FBwidth]{}{\includegraphics[width=3cm]{images/A2_localization_hybrid.png}}
+%%  \fcapside[\FBwidth]{}{\includegraphics[width=5cm]{images/A2_combined_hybrid.png}}
+%%  \end{subfloatrow}\vskip10pt%
+%%  
+%% \begin{subfloatrow}[3]
+%%  \fcapside[\FBwidth]{\caption{A3:M}\label{fig:sub1}}{\includegraphics[width=3cm]{images/A3_force_mechano.png}}%
+%%  \fcapside[\FBwidth]{}{\includegraphics[width=3cm]{images/A3_localization_mechano.png}}
+%%  \fcapside[\FBwidth]{}{\includegraphics[width=5cm]{images/A3_combined_mechano.png}}
+%%  \end{subfloatrow}\vskip10pt%
+%%  
+%%  \begin{subfloatrow}[3]
+%%  \fcapside[\FBwidth]{\caption{A3:MM}\label{fig:sub1}}{\includegraphics[width=3cm]{images/A3_force_hybrid.png}}%
+%%  \fcapside[\FBwidth]{}{\includegraphics[width=3cm]{images/A3_localization_hybrid.png}}
+%%  \fcapside[\FBwidth]{}{\includegraphics[width=5cm]{images/A3_combined_hybrid.png}}
+%%  \end{subfloatrow}\vskip10pt%
+%%  
+%%}
+%%{\caption{Confusion matrix of testing results from three amputees (A1 to A3) using mechanotactile and multi-modality stimulation devices. In the table, M represents mechanotactile and MM represents multi-modality stimulation. The first column of confusion matrices are from the intensity level identification test, where 1 to 3 represents three different intensities of stimulation. The second column of confusion matrices are from the localization test, where T, I, M, R, and L represent thumb, index finger, middle finger, ring finger, and little finger, respectively. The third column of confusion matrices are from the combined test, where the label consists of a letter and a number, representing the combined finger and intensity level.}
+%%\label{fig:hybrid_and_mechano_confusion_matrices}}
+%%\end{figure}
+%
+%
+%
+%%%% Compare the combined results
+%
+%
+%
+%
+%
+%%%% Discuss with and without phantom map
+%Amputee A1 and A2, who have phantom maps, outperform A3 in the localization tests (EXP 1, 3, 4, and 6). This is because of the intuitive mapping between the phantom map and the corresponding finger. Between A1 and A2, we could observe that experience with sensory feedback could further improve the recognition accuracy.
+%
+%%%% Discuss the different stimulation patterns
+%For A1, an experienced amputee with a phantom map, the multi-modality stimulation was beneficial. However, for A2 and A3 (subjects without a phantom map or without experience), the performance was degraded for half of the tests. This could be caused by fatigue. For A1, the localization is more intuitive than for A2. Subject A2 has only gone through a short 5 minutes training session, which is insufficient for him to remember the exact location. This procedure is tiresome. Subject A2 was first given the single modality tests (experiment 1 to 3) and then the hybrid tests (experiment 4 to 6). So in the second experimental set, A2 was tired and not able to identify the location as accurately as before.  
+%
+%
+%It can be observed from Table \ref{tab:hybrid_and_mechano_amputee_correct_rate} that A1 (an amputee with a phantom map) had improved performance after adding the vibrational cues. However, for A2 (subject without a phantom map), the performance was degraded for half of the tests. This could be caused by fatigue. For A1, localization is more intuitive than for A2. Subject A2 has only gone through a short 5 minutes training session, which is insufficient for him to remember the exact location. This procedure is tiresome. Subject A2 was first given the single modality tests (experiment 1 to 3) and then the hybrid tests (experiment 4 to 6). So in the second experimental set, A2 was tired and not able to identify the location as accurately as before.  
+%From the confusion matrices, it can be observed that both amputees only made mistakes with the neighbouring stimulations. Subject A1 confused the thumb with the middle finger because in the phantom map, the two representative regions are close together (Fig. 4(a)). 
+%Both subjects reported that adding vibrotactile stimulation before the mechanotactile stimulation serves as a ‘warning’ signal, which helps them to focus on the coming mechanotactile signal. Both subjects reported less mental load when dealing with hybrid stimulations.
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%\section{Conclusions}
+%In this work, a hybrid stimulation device incorporating two modalities, mechanotactile and vibrotactile, was designed. A stimulation array consisting of 5 stimulation devices were tested on two amputees. 
+%The testing results on the two amputees have shown that amputee with phantom maps can easily locate the stimulation point. With minimal training, the rate of correct localization is above 95%. After adding a vibrotactile cue, A1 with phantom map achieved a correct rate of almost 100% in both localization and intensity identification tasks.
+%For both amputees, most of the time, the localization performance was degraded when they were asked to both localize and identify the stimulation intensity. One possible explanation could be that attention requirements were higher when they were asked to answer both location and intensity at the same time.
+%In this study, only localization and intensity experiments were conducted. Other possible ways to use the hybrid stimulation device include incorporating different types of tactile information, such as vibrotactile stimulation, slip detection feedback and mechanotactile stimulation as pressure feedback.
+%
+%
+%
+%
+%
+%
+%
+%%
+%%
+%%\lipsum[2]
+%%
+%%\begin{equation}\label{eqn:rate_eqns}
+%%\frac{\textrm{d}}{\textrm{d}t}\left[
+%%\begin{array}{l}
+%%P_{\textit{0}} \\
+%%P_{\textit{1}} \\
+%%P_{\textit{T}}
+%%\end{array}
+%%\right] =
+%%\left[
+%%\begin{array}{l}
+%%\frac{P_{\textit{1}}}{\tau_{\textit{10}}} + \frac{P_{\textit{T}}}{\tau_{\textit{T}}} - \frac{P_{\textit{0}}}{\tau_{\textit{ex}}} \\
+%%- \frac{P_{\textit{1}}}{\tau_{\textit{10}}} - \frac{P_{\textit{1}}}{\tau_{isc}} + \frac{P_{\textit{0}}}{\tau_{\textit{ex}}} \\
+%%\frac{P_{\textit{1}}}{\tau_{isc}} -  \frac{P_{\textit{T}}}{\tau_{\textit{T}}}
+%%\end{array}
+%%\right]
+%%\end{equation}
+%%
+%%\lipsum[3]
+%%
+%%
+%%\begin{equation}\label{eqn:avgfluorescence}
+%%\bar{I_{f}}(\vec{r})	 
+%%	= \gamma(\vec{r}) \left(1 - \frac{\tau_{\textit{T}} P_{\textit{T}}^{{eq}}\left(1-\exp \left(-\frac{(T_p - t_p)}{\tau_{\textit{T}}}\right)\right)}{1-\exp\left(-\frac{(T_p - t_p)}{\tau_{\textit{T}}} + k_{\textit{2}} t_p\right)} \times \frac{\left(\exp\left(k_{\textit{2}} t_p\right)-1\right)}{t_p} \right) 
+%%\end{equation}
+%%
+%%\lipsum[3]
